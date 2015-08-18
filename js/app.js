@@ -1,5 +1,5 @@
 var app = angular.module('WidgetSpa', [
-    'ui.router'
+    'ngRoute'
 ]);
 
 app.constant('API_URL', 'http://spa.tglrw.com:4000');
@@ -7,48 +7,43 @@ app.constant('API_URL', 'http://spa.tglrw.com:4000');
 app.run(['$rootScope',
     function($rootScope) {
         
-        
-        
     }
 ]);
-app.config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
+app.config(['$routeProvider',
+    function($routeProvider) {
         
         // declare application states (routes)
-        $stateProvider
+        $routeProvider
         
-        .state('dashboard', {
-            url: '/',
+        .when('/', {
             templateUrl: 'partials/dashboard.html',
             controller: 'DashboardCtrl'
         })
         
-        .state('users', {
-            url: '/users',
+        .when('/users', {
             templateUrl: 'partials/users.html',
             controller: 'UsersCtrl'
         })
         
-        .state('users.single', {
-            url: '/users/:id',
-            templateUrl: 'partials/users-single.html',
-            controller: 'UsersCtrl'
+        .when('/users/:id', {
+            templateUrl: 'partials/user-details.html',
+            controller: 'UserDetailsCtrl'
         })
         
-        .state('widgets', {
-            url: '/widgets',
+        .when('/widgets', {
             templateUrl: 'partials/widgets.html',
             controller: 'WidgetsCtrl'
         })
         
-        .state('widgets.single', {
-            url: '/widgets/:id',
-            templateUrl: 'partials/widgets-single.html',
-            controller: 'WidgetsCtrl'
-        });
+        .when('/widgets/:id', {
+            templateUrl: 'partials/widget-details.html',
+            //controller: 'WidgetsCtrl'
+        })
         
         // redirect to dashboard if requested state is not defined
-        $urlRouterProvider.otherwise('/');
+        .otherwise({
+            redirectTo: '/'
+        });
         
     }
 ]);
@@ -79,6 +74,7 @@ app.factory('_users', ['$http', 'API_URL',
         
     }
 ]);
+
 /*
  * _widgets Factory
  *
@@ -118,6 +114,16 @@ app.factory('_widgets', ['$http', 'API_URL',
         
     }
 ]);
+app.controller('MainCtrl', ['$scope',
+    function($scope) {
+        
+        var d = new Date();
+        
+        $scope.year = d.getFullYear();
+        
+    }
+]);
+
 app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
     function($scope, _users, _widgets) {
         
@@ -129,28 +135,82 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
             $scope.widgets = data;
         });
         
+        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.breadcrumb = [
+            {
+                text: 'Home',
+                href: '/#/'
+            }
+        ];
+        
     }
 ]);
-app.controller('MainCtrl', ['$scope',
-    function($scope) {
-        
-        var d = new Date();
-        
-        $scope.year = d.getFullYear();
-        
-    }
-]);
+
 app.controller('UsersCtrl', ['$scope', '_users',
     function($scope, _users) {
         
-        _users.getAllUsers().then(function(data) {
+        _users.getAllUsers().then(function(data) {    
             $scope.users = data;
+        });
+        
+        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.breadcrumb = [
+            {
+                text: 'Home',
+                href: '/#/'
+            },
+            {
+                text: 'Users',
+                href: null
+            }
+        ];
+        
+    }
+]);
+
+app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
+    function($scope, _users, $routeParams) {
+        
+        $scope.$parent.pageTitle = 'Dashboard';
+        
+        _users.getUser($routeParams.id).then(function(data) {    
+            
+            $scope.user = data;
+            
+            $scope.$parent.breadcrumb = [
+                {
+                    text: 'Home',
+                    href: '/#/'
+                },
+                {
+                    text: 'Users',
+                    href: '/#/users'
+                },
+                {
+                    text: data.name,
+                    href: null
+                }
+            ];
+            
         });
         
     }
 ]);
+
 app.controller('WidgetsCtrl', ['$scope', '_widgets',
     function($scope, _widgets) {
+        
+        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.breadcrumb = [
+            {
+                text: 'Home',
+                href: '/#/'
+            },
+            {
+                text: 'Widgets',
+                href: null
+            }
+        ];
         
         _widgets.getAllWidgets().then(function(data) {
             $scope.widgets = data;
@@ -158,6 +218,77 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets',
         
     }
 ]);
+
+app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
+    function($scope, _widgets, $routeParams) {
+        
+        $scope.$parent.pageTitle = 'Dashboard';
+        
+        _widgets.getWidget($routeParams.id).then(function(data) {
+            
+            $scope.widget = data;
+            
+            $scope.$parent.breadcrumb = [
+                {
+                    text: 'Home',
+                    href: '/#/'
+                },
+                {
+                    text: 'Widgets',
+                    href: '/#/widgets'
+                },
+                {
+                    text: data.name,
+                    href: null
+                }
+            ];
+            
+        });
+        
+    }
+]);
+app.directive('breadcrumb', [
+    function() {
+        
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                
+                scope.$watch(function() {
+                    return scope.breadcrumb;
+                }, function(value) {
+                    
+                    if (angular.isArray(value)) {
+                        
+                        element.html('');
+                        var breadcrumb = [];
+                        
+                        angular.forEach(value, function(item) {
+                            
+                            if (item.href != null) {
+                                
+                                breadcrumb.push('<a href="' + item.href + '">' + item.text + '</a>');
+                                
+                            } else {
+                                
+                                breadcrumb.push(item.text);
+                                
+                            }
+                            
+                        });
+                    
+                        element.html(breadcrumb.join(' / '));
+                        
+                    }
+                    
+                });
+                
+            }
+        };
+        
+    }
+]);
+
 app.directive('listUsers', [
     function() {
         
@@ -168,10 +299,18 @@ app.directive('listUsers', [
             scope: {
                 users: '=listUsers'
             },
+            controller: function($scope, $window) {
+                
+                $scope.go = function(id) {
+                    $window.location.href = '/#/users/' + id;
+                };
+                
+            }
         };
         
     }
 ]);
+
 app.directive('listWidgets', [
     function() {
         
@@ -183,6 +322,13 @@ app.directive('listWidgets', [
                 widgets: '=listWidgets',
                 simpleView: '=simpleView'
             },
+            controller: function($scope, $window) {
+                
+                $scope.go = function(id) {
+                    $window.location.href = '/#/widgets/' + id;
+                };
+                
+            }
         };
         
     }
