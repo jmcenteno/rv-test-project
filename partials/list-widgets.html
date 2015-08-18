@@ -1,0 +1,34 @@
+<div class="widget">
+    <div class="widget-header">Widgets
+        <div class="pull-right"><input type="text" class="form-control input-sm" ng-model="searchQuery"></div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Price</th>
+                    <th>Melts?</th>
+                    <th>Inventory</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="widget in widgets | filter: searchQuery as searchResults">
+                    <td class="text-center">{{ widget.id }}</td>
+                    <td>{{ widget.name }}</td>
+                    <td>{{ widget.color }}</td>
+                    <td>{{ widget.price | filter: currency }}</td>
+                    <td>{{ widget.melts ? 'Yes' : 'No' }}</td>
+                    <td>{{ widget.inventory }}</td>
+                </tr>
+                <tr ng-if="searchResults.length == 0">
+                    <td colspan="6">
+                        No records found
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
