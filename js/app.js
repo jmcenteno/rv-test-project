@@ -120,3 +120,42 @@ app.factory('_widgets', ['$http', 'API_URL',
     }
 ]);
 
+app.controller('MainCtrl', ['$scope',
+    function($scope) {
+        
+        var d = new Date();
+        
+        $scope.year = d.getFullYear();
+        
+    }
+]);
+
+app.controller('DashboardCtrl', ['$scope', '_users',
+    function($scope, _users) {
+        
+        _users.getAllUsers().then(function(data) {
+            $scope.users = data;
+        });
+        
+    }
+]);
+    
+app.controller('UsersCtrl', ['$scope', '_users',
+    function($scope, _users) {
+        
+        _users.getAllUsers().then(function(data) {
+            $scope.users = data;
+        });
+        
+    }
+]);
+
+app.controller('WidgetsCtrl', ['$scope', '_widgets',
+    function($scope, _widgets) {
+        
+        _widgets.getAllWidgets().then(function(data) {
+            $scope.widgets = data;
+        });
+        
+    }
+]);
