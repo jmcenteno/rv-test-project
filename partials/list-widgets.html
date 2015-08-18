@@ -2,26 +2,26 @@
     <div class="widget-header">Widgets
         <div class="pull-right"><input type="text" class="form-control input-sm" ng-model="searchQuery"></div>
     </div>
-    <div class="table-responsive">
-        <table class="table">
+    <div class="table-scroll">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="text-center">ID</th>
                     <th>Name</th>
-                    <th>Color</th>
-                    <th>Price</th>
-                    <th>Melts?</th>
-                    <th>Inventory</th>
+                    <th ng-if="!simpleView">Color</th>
+                    <th ng-if="!simpleView">Price</th>
+                    <th ng-if="!simpleView">Melts?</th>
+                    <th ng-if="!simpleView">Inventory</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="widget in widgets | filter: searchQuery as searchResults">
+                <tr ng-repeat="widget in widgets | filter: searchQuery as searchResults" ng-click="go(widget.id)">
                     <td class="text-center">{{ widget.id }}</td>
                     <td>{{ widget.name }}</td>
-                    <td>{{ widget.color }}</td>
-                    <td>{{ widget.price | filter: currency }}</td>
-                    <td>{{ widget.melts ? 'Yes' : 'No' }}</td>
-                    <td>{{ widget.inventory }}</td>
+                    <td ng-if="!simpleView">{{ widget.color }}</td>
+                    <td ng-if="!simpleView">{{ widget.price | currency }}</td>
+                    <td ng-if="!simpleView">{{ widget.melts ? 'Yes' : 'No' }}</td>
+                    <td ng-if="!simpleView">{{ widget.inventory }}</td>
                 </tr>
                 <tr ng-if="searchResults.length == 0">
                     <td colspan="6">
