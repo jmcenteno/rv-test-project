@@ -2,6 +2,15 @@ var app = angular.module('WidgetSpa', [
     'ui.router'
 ]);
 
+app.constant('API_URL', 'http://spa.tglrw.com:4000');
+
+app.run(['$rootScope',
+    function($rootScope) {
+        
+        
+        
+    }
+]);
 app.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
         
@@ -43,15 +52,6 @@ app.config(['$stateProvider', '$urlRouterProvider',
         
     }
 ]);
-
-app.constant('API_URL', 'http://spa.tglrw.com:4000');
-
-app.run(['$rootScope',
-    function($rootScope) {
-        
-    }
-]);
-
 /*
  * _users Factory
  *
@@ -79,7 +79,6 @@ app.factory('_users', ['$http', 'API_URL',
         
     }
 ]);
-
 /*
  * _widgets Factory
  *
@@ -109,7 +108,7 @@ app.factory('_widgets', ['$http', 'API_URL',
             });
         };
         
-        widgets.getWidget = function(id, params) {
+        widgets.editWidget = function(id, params) {
             return $http.put(API_URL + '/widgets/' + id, params).then(function(response) {
                 return response.data;
             });
@@ -119,7 +118,19 @@ app.factory('_widgets', ['$http', 'API_URL',
         
     }
 ]);
-
+app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
+    function($scope, _users, _widgets) {
+        
+        _users.getAllUsers().then(function(data) {
+            $scope.users = data;
+        });
+        
+        _widgets.getAllWidgets().then(function(data) {
+            $scope.widgets = data;
+        });
+        
+    }
+]);
 app.controller('MainCtrl', ['$scope',
     function($scope) {
         
@@ -129,17 +140,6 @@ app.controller('MainCtrl', ['$scope',
         
     }
 ]);
-
-app.controller('DashboardCtrl', ['$scope', '_users',
-    function($scope, _users) {
-        
-        _users.getAllUsers().then(function(data) {
-            $scope.users = data;
-        });
-        
-    }
-]);
-    
 app.controller('UsersCtrl', ['$scope', '_users',
     function($scope, _users) {
         
@@ -149,7 +149,6 @@ app.controller('UsersCtrl', ['$scope', '_users',
         
     }
 ]);
-
 app.controller('WidgetsCtrl', ['$scope', '_widgets',
     function($scope, _widgets) {
         
@@ -159,7 +158,6 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets',
         
     }
 ]);
-
 app.directive('listUsers', [
     function() {
         
@@ -174,7 +172,6 @@ app.directive('listUsers', [
         
     }
 ]);
-
 app.directive('listWidgets', [
     function() {
         
