@@ -1,0 +1,5 @@
+/* line 3, ../assets/scss/styles.scss */
+.widget .table-scroll {
+  max-height: 300px;
+  overflow-y: auto;
+}
