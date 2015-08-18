@@ -1,41 +1,38 @@
-app.config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
+app.config(['$routeProvider',
+    function($routeProvider) {
         
         // declare application states (routes)
-        $stateProvider
+        $routeProvider
         
-        .state('dashboard', {
-            url: '/',
+        .when('/', {
             templateUrl: 'partials/dashboard.html',
             controller: 'DashboardCtrl'
         })
         
-        .state('users', {
-            url: '/users',
+        .when('/users', {
             templateUrl: 'partials/users.html',
             controller: 'UsersCtrl'
         })
         
-        .state('users.single', {
-            url: '/users/:id',
-            templateUrl: 'partials/users-single.html',
-            controller: 'UsersCtrl'
+        .when('/users/:id', {
+            templateUrl: 'partials/user-details.html',
+            controller: 'UserDetailsCtrl'
         })
         
-        .state('widgets', {
-            url: '/widgets',
+        .when('/widgets', {
             templateUrl: 'partials/widgets.html',
             controller: 'WidgetsCtrl'
         })
         
-        .state('widgets.single', {
-            url: '/widgets/:id',
-            templateUrl: 'partials/widgets-single.html',
-            controller: 'WidgetsCtrl'
-        });
+        .when('/widgets/:id', {
+            templateUrl: 'partials/widget-details.html',
+            //controller: 'WidgetsCtrl'
+        })
         
         // redirect to dashboard if requested state is not defined
-        $urlRouterProvider.otherwise('/');
+        .otherwise({
+            redirectTo: '/'
+        });
         
     }
 ]);
