@@ -9,19 +9,19 @@
 
   </head>
   <body ng-app="WidgetSpa">
-    <div id="page-wrapper" class="open">
+    <div id="page-wrapper" class="open" ng-controller="MainCtrl">
 
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
         <ul class="sidebar">
           <li class="sidebar-main"><a href="/">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
           <li class="sidebar-title"><span>NAVIGATION</span></li>
-          <li class="sidebar-list"><a href="/">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
-          <li class="sidebar-list"><a href="/user.html">Users <span class="menu-icon fa fa-users"></span></a></li>
-          <li class="sidebar-list"><a href="/widget.html">Widgets <span class="menu-icon fa fa-cubes"></span></a></li>
+          <li class="sidebar-list"><a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
+          <li class="sidebar-list"><a ui-sref="users">Users <span class="menu-icon fa fa-users"></span></a></li>
+          <li class="sidebar-list"><a ui-sref="widgets">Widgets <span class="menu-icon fa fa-cubes"></span></a></li>
         </ul>
         <div class="sidebar-footer col-xs-12">
-            <a href="#" target="_blank">&copy; 2015 Red Ventures</a>
+            <a href="#" target="_blank">&copy; {{ year }} Red Ventures</a>
         </div>
       </div>
 
@@ -31,15 +31,17 @@
         <div class="page-content">
 
           <!-- Header Bar -->
-          <div class="row header col-xs-12">
-            <div class="user pull-right">
-              <div class="item dropdown">
-                <a href="#" class="dropdown-toggle"><img src="img/avatar.jpg" alt=""></a>
+          <div class="row header">
+            <div class="col-xs-12">
+              <div class="user pull-right">
+                <div class="item dropdown">
+                  <a href="#" class="dropdown-toggle"><img src="img/avatar.jpg" alt=""></a>
+                </div>
               </div>
-            </div>
-            <div class="meta">
-              <div class="page">Dashboard</div>
-              <div class="breadcrumb-links">Home / Dashboard</div>
+              <div class="meta">
+                <div class="page">Dashboard</div>
+                <div class="breadcrumb-links">Home / Dashboard</div>
+              </div>
             </div>
           </div>
           <!-- End Header Bar -->
@@ -52,7 +54,7 @@
       
     <script type="text/javascript" src="components/angular/angular.min.js"></script>
     <script type="text/javascript" src="components/ui-router/release/angular-ui-router.min.js"></script>
-    
+    <script type="text/javascript" src="js/app.js"></script>
       
   </body>
 </html>
