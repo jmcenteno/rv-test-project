@@ -159,3 +159,34 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets',
         
     }
 ]);
+
+app.directive('listUsers', [
+    function() {
+        
+        return {
+            restrict: 'A',
+            templateUrl: 'partials/list-users.html',
+            replace: true,
+            scope: {
+                users: '=listUsers'
+            },
+        };
+        
+    }
+]);
+
+app.directive('listWidgets', [
+    function() {
+        
+        return {
+            restrict: 'A',
+            templateUrl: 'partials/list-widgets.html',
+            replace: true,
+            scope: {
+                widgets: '=listWidgets',
+                simpleView: '=simpleView'
+            },
+        };
+        
+    }
+]);
