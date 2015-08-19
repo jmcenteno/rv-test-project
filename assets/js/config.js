@@ -1,31 +1,36 @@
+/**
+ * App configuration
+ * Set routes and interceptors heres
+ */
+
 app.config(['$routeProvider',
-    function($routeProvider) {
+    function ($routeProvider) {
         
         // declare application states (routes)
         $routeProvider
         
         .when('/', {
-            templateUrl: 'partials/dashboard.html',
+            templateUrl: 'partials/pages/dashboard.html',
             controller: 'DashboardCtrl'
         })
         
         .when('/users', {
-            templateUrl: 'partials/users.html',
+            templateUrl: 'partials/pages/users.html',
             controller: 'UsersCtrl'
         })
         
         .when('/users/:id', {
-            templateUrl: 'partials/user-details.html',
+            templateUrl: 'partials/pages/user-details.html',
             controller: 'UserDetailsCtrl'
         })
         
         .when('/widgets', {
-            templateUrl: 'partials/widgets.html',
+            templateUrl: 'partials/pages/widgets.html',
             controller: 'WidgetsCtrl'
         })
         
         .when('/widgets/:id', {
-            templateUrl: 'partials/widget-details.html',
+            templateUrl: 'partials/pages/widget-details.html',
             controller: 'WidgetDetailsCtrl'
         })
         

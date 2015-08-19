@@ -1,5 +1,14 @@
+/**
+ * Filters
+ * Place all custom filters here
+ */
+
+/**
+ * Filter duplicate values from an array
+ * @returns {array} Array with unique values
+ */
 app.filter('unique', [
-    function() {
+    function () {
 
         return function (items, filterOn) {
 

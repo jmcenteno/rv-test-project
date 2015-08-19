@@ -1,20 +1,26 @@
+/**
+ * Directives
+ * Place all custom directives here
+ */
+
+//Generate breadcrumb navigation
 app.directive('breadcrumb', [
-    function() {
+    function () {
         
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 
-                scope.$watch(function() {
+                scope.$watch(function () {
                     return scope.breadcrumb;
-                }, function(value) {
+                }, function (value) {
                     
                     if (angular.isArray(value)) {
                         
                         element.html('');
                         var breadcrumb = [];
                         
-                        angular.forEach(value, function(item) {
+                        angular.forEach(value, function (item) {
                             
                             if (item.href != null) {
                                 
@@ -40,31 +46,33 @@ app.directive('breadcrumb', [
     }
 ]);
 
+// Show a loading animation
 app.directive('loading', [
-    function() {
+    function () {
         
         return {
             restrict: 'A',
             scope: {},
-            templateUrl: 'partials/loading.html'
+            templateUrl: 'partials/directives/loading.html'
         };
         
     }
 ]);
 
+// List users in a HTML table
 app.directive('listUsers', [
-    function() {
+    function () {
         
         return {
             restrict: 'A',
-            templateUrl: 'partials/list-users.html',
+            templateUrl: 'partials/directives/list-users.html',
             replace: true,
             scope: {
                 users: '=listUsers'
             },
-            controller: function($scope, $window) {
+            controller: function ($scope, $window) {
                 
-                $scope.go = function(id) {
+                $scope.go = function (id) {
                     $window.location.href = '/#/users/' + id;
                 };
                 
@@ -74,20 +82,21 @@ app.directive('listUsers', [
     }
 ]);
 
+// List widgets in a HTML table
 app.directive('listWidgets', [
-    function() {
+    function () {
         
         return {
             restrict: 'A',
-            templateUrl: 'partials/list-widgets.html',
+            templateUrl: 'partials/directives/list-widgets.html',
             replace: true,
             scope: {
                 widgets: '=listWidgets',
                 simpleView: '=simpleView'
             },
-            controller: function($scope, $window) {
+            controller: function ($scope, $window) {
                 
-                $scope.go = function(id) {
+                $scope.go = function (id) {
                     $window.location.href = '/#/widgets/' + id;
                 };
                 
@@ -97,12 +106,13 @@ app.directive('listWidgets', [
     }
 ]);
 
+// Modal with a form to create new widgets
 app.directive('widgetCreate', ['_widgets',
-    function(_widgets) {
+    function (_widgets) {
         
         return {
             restrict: 'A',
-            templateUrl: 'partials/widget-create.html',
+            templateUrl: 'partials/directives/widget-create.html',
             replace: true
         };
         
