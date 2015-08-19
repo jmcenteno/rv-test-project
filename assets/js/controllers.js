@@ -35,7 +35,7 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                state: null
+                href: null
             }
         ];
         
@@ -58,11 +58,11 @@ app.controller('UsersCtrl', ['$scope', '_users',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                state: 'dashboard'
+                href: '/#/'
             },
             {
                 text: 'Users',
-                state: null
+                href: null
             }
         ];
         
@@ -85,15 +85,15 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    state: 'dashboard'
+                    href: '/#/'
                 },
                 {
                     text: 'Users',
-                    state: 'users'
+                    href: 'users'
                 },
                 {
                     text: data.name,
-                    state: null
+                    href: null
                 }
             ];
             
@@ -113,11 +113,11 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                state: 'dashboard'
+                href: '/#/'
             },
             {
                 text: 'Widgets',
-                state: null
+                href: null
             }
         ];
         
@@ -198,15 +198,15 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$tim
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    state: 'dashboard'
+                    href: '/#/'
                 },
                 {
                     text: 'Widgets',
-                    state: 'widgets'
+                    href: 'widgets'
                 },
                 {
                     text: data.name,
-                    state: null
+                    href: null
                 }
             ];
             

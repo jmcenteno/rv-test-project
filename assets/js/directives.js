@@ -22,9 +22,9 @@ app.directive('breadcrumb', [
                         
                         angular.forEach(value, function (item) {
                             
-                            if (item.state != null) {
+                            if (item.href != null) {
                                 
-                                breadcrumb.push('<a ui-sref="' + item.state + '">' + item.text + '</a>');
+                                breadcrumb.push('<a href="' + item.href + '">' + item.text + '</a>');
                                 
                             } else {
                                 
@@ -72,9 +72,7 @@ app.directive('listUsers', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/users/' + id;
-                };
+                
                 
             }
         };
@@ -96,9 +94,7 @@ app.directive('listWidgets', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/widgets/' + id;
-                };
+                
                 
             }
         };

@@ -228,7 +228,7 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                state: null
+                href: null
             }
         ];
         
@@ -251,11 +251,11 @@ app.controller('UsersCtrl', ['$scope', '_users',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                state: 'dashboard'
+                href: '/#/'
             },
             {
                 text: 'Users',
-                state: null
+                href: null
             }
         ];
         
@@ -278,15 +278,15 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    state: 'dashboard'
+                    href: '/#/'
                 },
                 {
                     text: 'Users',
-                    state: 'users'
+                    href: 'users'
                 },
                 {
                     text: data.name,
-                    state: null
+                    href: null
                 }
             ];
             
@@ -306,11 +306,11 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                state: 'dashboard'
+                href: '/#/'
             },
             {
                 text: 'Widgets',
-                state: null
+                href: null
             }
         ];
         
@@ -391,15 +391,15 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$tim
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    state: 'dashboard'
+                    href: '/#/'
                 },
                 {
                     text: 'Widgets',
-                    state: 'widgets'
+                    href: 'widgets'
                 },
                 {
                     text: data.name,
-                    state: null
+                    href: null
                 }
             ];
             
@@ -470,9 +470,9 @@ app.directive('breadcrumb', [
                         
                         angular.forEach(value, function (item) {
                             
-                            if (item.state != null) {
+                            if (item.href != null) {
                                 
-                                breadcrumb.push('<a ui-sref="' + item.state + '">' + item.text + '</a>');
+                                breadcrumb.push('<a href="' + item.href + '">' + item.text + '</a>');
                                 
                             } else {
                                 
@@ -520,9 +520,7 @@ app.directive('listUsers', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/users/' + id;
-                };
+                
                 
             }
         };
@@ -544,9 +542,7 @@ app.directive('listWidgets', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/widgets/' + id;
-                };
+                
                 
             }
         };
