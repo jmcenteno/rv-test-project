@@ -1,30 +1,39 @@
-/* line 3, ../assets/scss/styles.scss */
+/* line 5, ../assets/scss/styles.scss */
+#sidebar-wrapper .sidebar > li.active {
+  background-color: #384d7c;
+}
+/* line 11, ../assets/scss/styles.scss */
+#sidebar-wrapper .sidebar-footer {
+  padding-top: 10px;
+}
+
+/* line 19, ../assets/scss/styles.scss */
 .widget .table-scroll {
   overflow-y: auto;
 }
-/* line 9, ../assets/scss/styles.scss */
+/* line 25, ../assets/scss/styles.scss */
 .widget .table.table-hover tbody tr {
   cursor: pointer;
 }
-/* line 14, ../assets/scss/styles.scss */
+/* line 30, ../assets/scss/styles.scss */
 .widget .table thead th a:hover {
   text-decoration: none;
   cursor: pointer;
 }
 
-/* line 26, ../assets/scss/styles.scss */
+/* line 42, ../assets/scss/styles.scss */
 #dashboard-page .table-scroll {
   max-height: 300px;
 }
 
-/* line 34, ../assets/scss/styles.scss */
+/* line 50, ../assets/scss/styles.scss */
 .panel .form-group {
   border-bottom: solid 1px #eee;
   margin: 0;
   padding-top: 15px;
   padding-bottom: 15px;
 }
-/* line 40, ../assets/scss/styles.scss */
+/* line 56, ../assets/scss/styles.scss */
 .panel .form-group:last-child {
   border-bottom: none;
 }
