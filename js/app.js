@@ -499,6 +499,7 @@ app.directive('breadcrumb', [
     }
 ]);
 
+// Wrapper directive to use jQuery to animate values and display them as they change with an easing method
 app.directive('animateValue', [
     function () {
         

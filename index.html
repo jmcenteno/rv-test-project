@@ -18,12 +18,12 @@
         <ul class="sidebar">
           <li class="sidebar-main"><a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
           <li class="sidebar-title"><span>NAVIGATION</span></li>
-          <li class="sidebar-list active"><a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
-          <li class="sidebar-list"><a ui-sref="users">Users <span class="menu-icon fa fa-users"></span></a></li>
-          <li class="sidebar-list"><a ui-sref="widgets">Widgets <span class="menu-icon fa fa-cubes"></span></a></li>
+          <li class="sidebar-list" ui-sref-active="active"><a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
+          <li class="sidebar-list" ui-sref-active="active"><a ui-sref="users">Users <span class="menu-icon fa fa-users"></span></a></li>
+          <li class="sidebar-list" ui-sref-active="active"><a ui-sref="widgets">Widgets <span class="menu-icon fa fa-cubes"></span></a></li>
         </ul>
         <div class="sidebar-footer col-xs-12">
-            <a href="#" target="_blank">&copy; {{ year }} Red Ventures</a>
+            <a ui-sref="dashboard">&copy; {{ year }} Red Ventures</a>
         </div>
       </div>
 

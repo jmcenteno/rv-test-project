@@ -1,3 +1,19 @@
+#sidebar-wrapper {
+	
+    .sidebar > li {
+        
+        &.active {
+            background-color: lighten(#30426a, 5%);
+        }
+        
+    }
+    
+    .sidebar-footer {
+        padding-top: 10px;
+    }
+    
+}
+
 .widget {
     
     .table-scroll {
