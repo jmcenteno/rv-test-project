@@ -81,8 +81,8 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
     }
 ]);
 
-app.controller('WidgetsCtrl', ['$scope', '_widgets',
-    function($scope, _widgets) {
+app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
+    function($scope, _widgets, $timeout) {
         
         $scope.$parent.pageTitle = 'Dashboard';
         $scope.$parent.breadcrumb = [
@@ -100,17 +100,63 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets',
             $scope.widgets = data;
         });
         
+        _widgets.getColorOptions().then(function(data) {
+            $scope.colors = data;
+        });
+        
+        $scope.processing = false;
+        
+        $scope.resetForm = function() {
+            $scope.widget = {
+                melts: false
+            };
+        };
+        
+        $scope.create = function() {
+            
+            $scope.processing = true;
+            
+            _widgets.createWidget($scope.widget).then(function(data) {
+                
+                $scope.processing = false;
+                $scope.recordModified = true;
+                $scope.resetForm();
+                
+                _widgets.getAllWidgets().then(function(data) {
+                    $scope.widgets = data;
+                });
+                
+                $timeout(function() {
+                    $scope.recordModified = false;
+                }, 10*1000);
+                
+            }, function() {
+                
+                $scope.processing = false;
+                $scope.error = true;
+                
+                $timeout(function() {
+                    $scope.error = false;
+                }, 10*1000);
+                
+            });
+            
+            return false;
+            
+        };
+        
     }
 ]);
 
-app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
-    function($scope, _widgets, $routeParams) {
+app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$timeout',
+    function($scope, _widgets, $routeParams, $timeout) {
         
         $scope.$parent.pageTitle = 'Widgets';
         
         _widgets.getWidget($routeParams.id).then(function(data) {
             
             $scope.widget = data;
+            $scope.widget.price = parseFloat($scope.widget.price);
             
             $scope.$parent.breadcrumb = [
                 {
@@ -131,10 +177,36 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
         
         _widgets.getColorOptions().then(function(data) {
             $scope.colors = data;
-            console.log(data)
         });
         
+        $scope.processing = false;
+        
         $scope.save = function() {
+                
+            var params = angular.copy($scope.widget);
+            delete params.id;
+            
+            $scope.processing = true;
+            
+            _widgets.editWidget($scope.widget.id, params).then(function(data) {
+                
+                $scope.processing = false;
+                $scope.recordModified = true;
+                
+                $timeout(function() {
+                    $scope.recordModified = false;
+                }, 10*1000);
+            
+            }, function() {
+                
+                $scope.processing = false;
+                $scope.error = true;
+                
+                $timeout(function() {
+                    $scope.error = false;
+                }, 10*1000);
+                
+            });
             
             return false;
             
