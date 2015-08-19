@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="widget in widgets | filter: searchQuery as searchResults" ng-click="go(widget.id)">
+                <tr ng-repeat="widget in widgets | filter: searchQuery as searchResults" ui-sref="widgetDetails({ id: widget.id })">
                     <td class="text-center">{{ widget.id }}</td>
                     <td>{{ widget.name }}</td>
                     <td ng-if="!simpleView">{{ widget.color }}</td>
