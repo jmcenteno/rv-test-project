@@ -1,7 +1,7 @@
 <div class="widget">
     <div class="widget-header">Users
         <div class="pull-right">
-            <input type="text" class="form-control input-sm" ng-model="searchQuery">
+            <input type="text" class="form-control input-sm" placeholder="Search" ng-model="searchQuery">
         </div>
     </div>
     <div class="table-scroll">
@@ -24,6 +24,10 @@
                 <tr ng-if="searchResults.length == 0">
                     <td colspan="3">
                         No records found
+                    </td>
+                </tr>
+                <tr ng-if="!users">
+                    <td colspan="3" data-loading="">
                     </td>
                 </tr>
             </tbody>
