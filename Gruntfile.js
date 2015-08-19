@@ -37,6 +37,7 @@ module.exports = function(grunt) {
                     'assets/js/services.js',
                     'assets/js/controllers.js',
                     'assets/js/directives.js',
+                    'assets/js/filters.js',
 				],
 				dest: 'js/app.js',
 			},
