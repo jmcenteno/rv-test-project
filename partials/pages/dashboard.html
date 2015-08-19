@@ -1,0 +1,44 @@
+<div id="dashboard-page">
+
+    <!-- Dashboard Boxes -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-xs-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-icon green pull-left">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="title">{{ users.length }}</div>
+                    <div class="comment">Users</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xs-12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="widget-icon green pull-left">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="title">{{ widgets.length }}</div>
+                    <div class="comment">Widgets</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="row">
+
+        <!-- Users listing -->
+        <div class="col-lg-6">
+            <div data-list-users="users"></div>
+        </div><!-- End Users -->
+
+        <!-- Widget listing -->
+        <div class="col-lg-6">
+            <div data-list-widgets="widgets" data-simple-view="true"></div>
+        </div><!-- End Widgets -->
+
+    </div><!-- End Tables -->
+    
+</div><!-- #dashboard-page -->

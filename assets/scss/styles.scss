@@ -1,0 +1,35 @@
+.widget {
+    
+    .table-scroll {
+        overflow-y: auto;
+    }
+    
+    .table-hover tbody tr {
+        cursor: pointer;
+    }
+    
+}
+
+#dashboard-page {
+	
+    .table-scroll {
+        max-height: 300px;
+    }
+    
+}
+
+.panel {
+
+    .form-group {
+        border-bottom: solid 1px #eee;
+        margin: 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+    }
+    
+}

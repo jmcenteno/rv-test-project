@@ -1,0 +1,24 @@
+{
+  "name": "widget-spa",
+  "version": "0.0.0",
+  "homepage": "https://github.com/RedVentures/widgets-spa",
+  "authors": [
+    "Red Ventures"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0",
+    "rdash-ui": "~1.0.1",
+    "angular": "~1.4.4",
+    "angular-route": "~1.4.4"
+  }
+}

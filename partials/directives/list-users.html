@@ -1,0 +1,36 @@
+<div class="widget">
+    <div class="widget-header">Users
+        <div class="pull-right">
+            <input type="text" class="form-control input-sm" placeholder="Search" ng-model="searchQuery">
+        </div>
+    </div>
+    <div class="table-scroll">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Name</th>
+                    <th>Avatar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users | filter: searchQuery as searchResults" ng-click="go(user.id)">
+                    <td class="text-center">{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>
+                        <img ng-src="{{ user.gravatar }}" alt="{{ user.name }}">
+                    </td>
+                </tr>
+                <tr ng-if="searchResults.length == 0">
+                    <td colspan="3">
+                        No records found
+                    </td>
+                </tr>
+                <tr ng-if="!users">
+                    <td colspan="3" data-loading="">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

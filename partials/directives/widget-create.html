@@ -1,0 +1,69 @@
+<div class="modal fade" id="widget-create-modal">
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetForm()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create New Widget</h4>
+            </div>
+            <div class="modal-body" ng-if="recordModified">
+                <div role="alert" class="alert alert-success alert-dismissible fade in">
+                    <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">&times;</span></button>
+                    Widget <strong>{{ widget.name }}</strong> was added successfuly.
+                </div>
+            </div>
+            <div class="row" ng-if="error">
+                <div class="col-xs-12">
+                    <div role="alert" class="alert alert-danger alert-dismissible fade in">
+                        <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4>Error</h4>
+                        Your request cannot be processed at this time. Please try again.
+                    </div>
+                </div>
+            </div>
+            <form method="post" name="widgetForm" ng-submit="create()">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="control-label col-sm-4">Name</div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="widget.name" name="name" class="form-control" required ng-disabled="processing">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-sm-4">Color</div>
+                        <div class="col-sm-6">
+                            <select ng-model="widget.color" name="color" ng-options="option for option in colors" class="form-control" required ng-disabled="processing">
+                                <option value="">Select a Color</option>
+                            </select>        
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-sm-4">Price</div>
+                        <div class="col-sm-4">
+                            <input type="number" step=".01" min="0.01" ng-model="widget.price" name="price" class="form-control" required ng-disabled="processing">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-sm-4">Melts</div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">  
+                                <label>
+                                    <input type="checkbox" ng-model="widget.melts" name="melts" ng-disabled="processing">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label col-sm-4">Inventory</div>
+                        <div class="col-sm-4">
+                            <input type="number" step="1" min="0" ng-model="widget.inventory" class="form-control" required ng-disabled="processing">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetForm()">Cancel</a>
+                    <button type="submit" class="btn btn-primary" ng-disabled="processing">{{ !processing ? 'Submit' : 'Please wait' }}</button>
+                </div>
+            </form>  
+        </div>
+    </div>
+</div>
