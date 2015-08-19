@@ -40,6 +40,18 @@ app.directive('breadcrumb', [
     }
 ]);
 
+app.directive('loading', [
+    function() {
+        
+        return {
+            restrict: 'A',
+            scope: {},
+            templateUrl: 'partials/loading.html'
+        };
+        
+    }
+]);
+
 app.directive('listUsers', [
     function() {
         
