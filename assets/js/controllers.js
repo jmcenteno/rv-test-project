@@ -37,7 +37,7 @@ app.controller('UsersCtrl', ['$scope', '_users',
             $scope.users = data;
         });
         
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Users';
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
@@ -55,7 +55,7 @@ app.controller('UsersCtrl', ['$scope', '_users',
 app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
     function($scope, _users, $routeParams) {
         
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Users';
         
         _users.getUser($routeParams.id).then(function(data) {    
             
@@ -106,7 +106,7 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets',
 app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
     function($scope, _widgets, $routeParams) {
         
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Widgets';
         
         _widgets.getWidget($routeParams.id).then(function(data) {
             
@@ -128,6 +128,17 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
             ];
             
         });
+        
+        _widgets.getColorOptions().then(function(data) {
+            $scope.colors = data;
+            console.log(data)
+        });
+        
+        $scope.save = function() {
+            
+            return false;
+            
+        };
         
     }
 ]);

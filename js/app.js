@@ -110,6 +110,26 @@ app.factory('_widgets', ['$http', 'API_URL',
             });
         };
         
+        widgets.getColorOptions = function() {
+            return $http.get(API_URL + '/widgets').then(function(response) {
+                
+                var colors = [];
+                
+                if (response.data) {
+                    
+                    angular.forEach(response.data, function(item) {
+                        if (colors.indexOf(item.color) == -1) {
+                            colors.push(item.color)
+                        }
+                    });
+                    
+                } 
+                
+                return colors;
+
+            });
+        };
+        
         return widgets;
         
     }
@@ -153,7 +173,7 @@ app.controller('UsersCtrl', ['$scope', '_users',
             $scope.users = data;
         });
         
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Users';
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
@@ -171,7 +191,7 @@ app.controller('UsersCtrl', ['$scope', '_users',
 app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
     function($scope, _users, $routeParams) {
         
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Users';
         
         _users.getUser($routeParams.id).then(function(data) {    
             
@@ -222,7 +242,7 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets',
 app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
     function($scope, _widgets, $routeParams) {
         
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Widgets';
         
         _widgets.getWidget($routeParams.id).then(function(data) {
             
@@ -244,6 +264,17 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams',
             ];
             
         });
+        
+        _widgets.getColorOptions().then(function(data) {
+            $scope.colors = data;
+            console.log(data)
+        });
+        
+        $scope.save = function() {
+            
+            return false;
+            
+        };
         
     }
 ]);
@@ -343,5 +374,53 @@ app.directive('listWidgets', [
             }
         };
         
+    }
+]);
+app.filter('unique', [
+    function() {
+
+        return function (items, filterOn) {
+
+            if (filterOn === false) {
+                return items;
+            }
+
+            if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+
+                var hashCheck = {}, newItems = [];
+
+                var extractValueToCompare = function (item) {
+                    if (angular.isObject(item) && angular.isString(filterOn)) {
+                        return item[filterOn];
+                    } else {
+                        return item;
+                    }
+                };
+
+                angular.forEach(items, function (item) {
+
+                    var valueToCheck, isDuplicate = false;
+
+                    for (var i = 0; i < newItems.length; i++) {
+                        if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+
+                    if (!isDuplicate) {
+                        newItems.push(item);
+                    }
+
+                });
+
+                items = newItems;
+            
+            }
+            
+            return items;
+            
+        };
+
     }
 ]);
