@@ -1,7 +1,8 @@
-<div class="row">
+<div class="row" ng-if="recordModified">
     <div class="col-xs-12">
-        <div class="text-right">
-            <button type="button" class="btn btn-info">Create New</button>
+        <div role="alert" class="alert alert-success alert-dismissible fade in">
+            <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
+            Widget <strong>{{ widget.name }}</strong> was modified.
         </div>
     </div>
 </div>
@@ -11,21 +12,15 @@
         <form class="panel panel-default" method="post" name="widgetForm" ng-submit="save()">
             <div class="form-horizontal" ng-if="widget">
                 <div class="form-group">
-                    <div class="control-label col-sm-4 col-md-2">Widget ID</div>
-                    <div class="col-sm-4 col-md-2">
-                        <input type="text" ng-disabled="true" ng-model="widget.id" name="widget_id" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
                     <div class="control-label col-sm-4 col-md-2">Name</div>
                     <div class="col-sm-6 col-md-4">
-                        <input type="text" ng-model="widget.name" name="name" class="form-control" required>
+                        <input type="text" ng-model="widget.name" name="name" class="form-control" required ng-disabled="processing">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="control-label col-sm-4 col-md-2">Color</div>
                     <div class="col-sm-6 col-md-4">
-                        <select ng-model="widget.color" name="color" ng-options="option for option in colors" class="form-control" required>
+                        <select ng-model="widget.color" name="color" ng-options="option for option in colors" class="form-control" required ng-disabled="processing">
                             <option value="">Select a Color</option>
                         </select>        
                     </div>
@@ -33,7 +28,7 @@
                 <div class="form-group">
                     <div class="control-label col-sm-4 col-md-2">Price</div>
                     <div class="col-sm-4 col-md-2">
-                        <input type="text" ng-model="widget.price" name="price" class="form-control" required>
+                        <input type="number" step=".01" min="0.01" ng-model="widget.price" name="price" class="form-control" required ng-disabled="processing">
                     </div>
                 </div>
                 <div class="form-group">
@@ -41,7 +36,7 @@
                     <div class="col-sm-6 col-md-4">
                         <div class="checkbox">  
                             <label>
-                                <input type="checkbox" ng-model="widget.melts" name="melts">
+                                <input type="checkbox" ng-model="widget.melts" name="melts" ng-disabled="processing">
                             </label>
                         </div>
                     </div>
@@ -49,13 +44,13 @@
                 <div class="form-group">
                     <div class="control-label col-sm-4 col-md-2">Inventory</div>
                     <div class="col-sm-4 col-md-2">
-                        <input type="number" step="1" ng-model="widget.inventory" class="form-control" required>
+                        <input type="number" step="1" min="0" ng-model="widget.inventory" class="form-control" required ng-disabled="processing">
                     </div>
                 </div>
             </div>
             <div class="panel-footer text-right">
                 <a href="/#/widgets" class="btn btn-link">Cancel</a>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="processing">{{ !processing ? 'Save' : 'Please wait' }}</button>
             </div>
             <div data-loading="" ng-if="!widget"></div>
         </form>  
