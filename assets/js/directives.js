@@ -118,3 +118,20 @@ app.directive('widgetCreate', ['_widgets',
         
     }
 ]);
+
+// Back button
+app.directive('backButton', [
+    function () {
+        
+        return {
+            restrict: 'A',
+            templateUrl: 'partials/directives/back-button.html',
+            replace: true,
+            scope: {},
+            link: function (scope, element, attrs) {
+                scope.config = scope.$eval(attrs.backButton);
+            }
+        };
+        
+    }
+]);
