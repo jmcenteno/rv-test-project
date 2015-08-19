@@ -35,7 +35,7 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: null
+                state: null
             }
         ];
         
@@ -58,11 +58,11 @@ app.controller('UsersCtrl', ['$scope', '_users',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                state: 'dashboard'
             },
             {
                 text: 'Users',
-                href: null
+                state: null
             }
         ];
         
@@ -70,14 +70,14 @@ app.controller('UsersCtrl', ['$scope', '_users',
 ]);
 
 // User details view controller
-app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
-    function ($scope, _users, $routeParams) {
+app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
+    function ($scope, _users, $stateParams) {
         
         // set the page title
         $scope.$parent.pageTitle = 'Users';
         
         // get the requested user
-        _users.getUser($routeParams.id).then(function (data) {    
+        _users.getUser($stateParams.id).then(function (data) {    
             
             $scope.user = data;
             
@@ -85,15 +85,15 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    href: '/#/'
+                    state: 'dashboard'
                 },
                 {
                     text: 'Users',
-                    href: '/#/users'
+                    state: 'users'
                 },
                 {
                     text: data.name,
-                    href: null
+                    state: null
                 }
             ];
             
@@ -113,11 +113,11 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                state: 'dashboard'
             },
             {
                 text: 'Widgets',
-                href: null
+                state: null
             }
         ];
         
@@ -182,14 +182,14 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
 ]);
 
 // Widget details view controller
-app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$timeout',
-    function ($scope, _widgets, $routeParams, $timeout) {
+app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$timeout',
+    function ($scope, _widgets, $stateParams, $timeout) {
         
         // set page breadcrumbs
         $scope.$parent.pageTitle = 'Widgets';
         
         // get the requested widget
-        _widgets.getWidget($routeParams.id).then(function (data) {
+        _widgets.getWidget($stateParams.id).then(function (data) {
             
             $scope.widget = data;
             $scope.widget.price = parseFloat($scope.widget.price);
@@ -198,15 +198,15 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$tim
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    href: '/#/'
+                    state: 'dashboard'
                 },
                 {
                     text: 'Widgets',
-                    href: '/#/widgets'
+                    state: 'widgets'
                 },
                 {
                     text: data.name,
-                    href: null
+                    state: null
                 }
             ];
             

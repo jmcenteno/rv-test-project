@@ -22,9 +22,9 @@ app.directive('breadcrumb', [
                         
                         angular.forEach(value, function (item) {
                             
-                            if (item.href != null) {
+                            if (item.state != null) {
                                 
-                                breadcrumb.push('<a href="' + item.href + '">' + item.text + '</a>');
+                                breadcrumb.push('<a ui-sref="' + item.state + '">' + item.text + '</a>');
                                 
                             } else {
                                 
@@ -120,8 +120,8 @@ app.directive('widgetCreate', ['_widgets',
 ]);
 
 // Back button
-app.directive('backButton', [
-    function () {
+app.directive('backButton', ['$state',
+    function ($state) {
         
         return {
             restrict: 'A',
@@ -129,7 +129,13 @@ app.directive('backButton', [
             replace: true,
             scope: {},
             link: function (scope, element, attrs) {
+                
                 scope.config = scope.$eval(attrs.backButton);
+                
+                scope.go = function (state, options) {
+                    $state.go(state, options);
+                };
+                
             }
         };
         

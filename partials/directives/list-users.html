@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in users | filter: searchQuery as searchResults" ng-click="go(user.id)">
+                <tr ng-repeat="user in users | filter: searchQuery as searchResults" ui-sref="userDetails({ id: user.id })">
                     <td class="text-center">{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>

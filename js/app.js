@@ -4,7 +4,8 @@
 
 // define the module
 var app = angular.module('WidgetSpa', [
-    'ngRoute'
+    //'ngRoute'
+    'ui.router'
 ]);
 
 // Application constants
@@ -21,41 +22,44 @@ app.run(['$rootScope',
  * Set routes and interceptors heres
  */
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config(['$stateProvider', '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
         
         // declare application states (routes)
-        $routeProvider
+        $stateProvider
         
-        .when('/', {
+        .state('dashboard', {
+            url: '/',
             templateUrl: 'partials/pages/dashboard.html',
             controller: 'DashboardCtrl'
         })
         
-        .when('/users', {
+        .state('users', {
+            url: '/users',
             templateUrl: 'partials/pages/users.html',
             controller: 'UsersCtrl'
         })
         
-        .when('/users/:id', {
+        .state('userDetails', {
+            url: '/users/:id',
             templateUrl: 'partials/pages/user-details.html',
             controller: 'UserDetailsCtrl'
         })
         
-        .when('/widgets', {
+        .state('widgets', {
+            url: '/widgets',
             templateUrl: 'partials/pages/widgets.html',
             controller: 'WidgetsCtrl'
         })
         
-        .when('/widgets/:id', {
+        .state('widgetDetails', {
+            url: '/widgets/:id',
             templateUrl: 'partials/pages/widget-details.html',
             controller: 'WidgetDetailsCtrl'
-        })
+        });
         
         // redirect to dashboard if requested state is not defined
-        .otherwise({
-            redirectTo: '/'
-        });
+        $urlRouterProvider.otherwise('/');
         
     }
 ]);
@@ -224,7 +228,7 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: null
+                state: null
             }
         ];
         
@@ -247,11 +251,11 @@ app.controller('UsersCtrl', ['$scope', '_users',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                state: 'dashboard'
             },
             {
                 text: 'Users',
-                href: null
+                state: null
             }
         ];
         
@@ -259,14 +263,14 @@ app.controller('UsersCtrl', ['$scope', '_users',
 ]);
 
 // User details view controller
-app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
-    function ($scope, _users, $routeParams) {
+app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
+    function ($scope, _users, $stateParams) {
         
         // set the page title
         $scope.$parent.pageTitle = 'Users';
         
         // get the requested user
-        _users.getUser($routeParams.id).then(function (data) {    
+        _users.getUser($stateParams.id).then(function (data) {    
             
             $scope.user = data;
             
@@ -274,15 +278,15 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    href: '/#/'
+                    state: 'dashboard'
                 },
                 {
                     text: 'Users',
-                    href: '/#/users'
+                    state: 'users'
                 },
                 {
                     text: data.name,
-                    href: null
+                    state: null
                 }
             ];
             
@@ -302,11 +306,11 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                state: 'dashboard'
             },
             {
                 text: 'Widgets',
-                href: null
+                state: null
             }
         ];
         
@@ -371,14 +375,14 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
 ]);
 
 // Widget details view controller
-app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$timeout',
-    function ($scope, _widgets, $routeParams, $timeout) {
+app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$timeout',
+    function ($scope, _widgets, $stateParams, $timeout) {
         
         // set page breadcrumbs
         $scope.$parent.pageTitle = 'Widgets';
         
         // get the requested widget
-        _widgets.getWidget($routeParams.id).then(function (data) {
+        _widgets.getWidget($stateParams.id).then(function (data) {
             
             $scope.widget = data;
             $scope.widget.price = parseFloat($scope.widget.price);
@@ -387,15 +391,15 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$tim
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    href: '/#/'
+                    state: 'dashboard'
                 },
                 {
                     text: 'Widgets',
-                    href: '/#/widgets'
+                    state: 'widgets'
                 },
                 {
                     text: data.name,
-                    href: null
+                    state: null
                 }
             ];
             
@@ -466,9 +470,9 @@ app.directive('breadcrumb', [
                         
                         angular.forEach(value, function (item) {
                             
-                            if (item.href != null) {
+                            if (item.state != null) {
                                 
-                                breadcrumb.push('<a href="' + item.href + '">' + item.text + '</a>');
+                                breadcrumb.push('<a ui-sref="' + item.state + '">' + item.text + '</a>');
                                 
                             } else {
                                 
@@ -564,8 +568,8 @@ app.directive('widgetCreate', ['_widgets',
 ]);
 
 // Back button
-app.directive('backButton', [
-    function () {
+app.directive('backButton', ['$state',
+    function ($state) {
         
         return {
             restrict: 'A',
@@ -573,7 +577,13 @@ app.directive('backButton', [
             replace: true,
             scope: {},
             link: function (scope, element, attrs) {
+                
                 scope.config = scope.$eval(attrs.backButton);
+                
+                scope.go = function (state, options) {
+                    $state.go(state, options);
+                };
+                
             }
         };
         

@@ -19,6 +19,7 @@
     "font-awesome": "~4.4.0",
     "rdash-ui": "~1.0.1",
     "angular": "~1.4.4",
-    "angular-route": "~1.4.4"
+    "angular-route": "~1.4.4",
+    "ui-router": "~0.2.15"
   }
 }

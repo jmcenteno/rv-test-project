@@ -3,41 +3,44 @@
  * Set routes and interceptors heres
  */
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config(['$stateProvider', '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
         
         // declare application states (routes)
-        $routeProvider
+        $stateProvider
         
-        .when('/', {
+        .state('dashboard', {
+            url: '/',
             templateUrl: 'partials/pages/dashboard.html',
             controller: 'DashboardCtrl'
         })
         
-        .when('/users', {
+        .state('users', {
+            url: '/users',
             templateUrl: 'partials/pages/users.html',
             controller: 'UsersCtrl'
         })
         
-        .when('/users/:id', {
+        .state('userDetails', {
+            url: '/users/:id',
             templateUrl: 'partials/pages/user-details.html',
             controller: 'UserDetailsCtrl'
         })
         
-        .when('/widgets', {
+        .state('widgets', {
+            url: '/widgets',
             templateUrl: 'partials/pages/widgets.html',
             controller: 'WidgetsCtrl'
         })
         
-        .when('/widgets/:id', {
+        .state('widgetDetails', {
+            url: '/widgets/:id',
             templateUrl: 'partials/pages/widget-details.html',
             controller: 'WidgetDetailsCtrl'
-        })
+        });
         
         // redirect to dashboard if requested state is not defined
-        .otherwise({
-            redirectTo: '/'
-        });
+        $urlRouterProvider.otherwise('/');
         
     }
 ]);
