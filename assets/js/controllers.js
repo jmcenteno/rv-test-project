@@ -23,7 +23,7 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                href: null
             }
         ];
         
