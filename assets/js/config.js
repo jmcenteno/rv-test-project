@@ -26,7 +26,7 @@ app.config(['$routeProvider',
         
         .when('/widgets/:id', {
             templateUrl: 'partials/widget-details.html',
-            //controller: 'WidgetsCtrl'
+            controller: 'WidgetDetailsCtrl'
         })
         
         // redirect to dashboard if requested state is not defined

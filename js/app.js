@@ -37,7 +37,7 @@ app.config(['$routeProvider',
         
         .when('/widgets/:id', {
             templateUrl: 'partials/widget-details.html',
-            //controller: 'WidgetsCtrl'
+            controller: 'WidgetDetailsCtrl'
         })
         
         // redirect to dashboard if requested state is not defined
@@ -139,7 +139,7 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                href: null
             }
         ];
         
@@ -284,6 +284,18 @@ app.directive('breadcrumb', [
                 });
                 
             }
+        };
+        
+    }
+]);
+
+app.directive('loading', [
+    function() {
+        
+        return {
+            restrict: 'A',
+            scope: {},
+            templateUrl: 'partials/loading.html'
         };
         
     }
