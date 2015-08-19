@@ -96,3 +96,15 @@ app.directive('listWidgets', [
         
     }
 ]);
+
+app.directive('widgetCreate', ['_widgets',
+    function(_widgets) {
+        
+        return {
+            restrict: 'A',
+            templateUrl: 'partials/widget-create.html',
+            replace: true
+        };
+        
+    }
+]);
