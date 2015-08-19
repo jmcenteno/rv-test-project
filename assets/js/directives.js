@@ -72,7 +72,9 @@ app.directive('listUsers', [
             },
             controller: function ($scope, $window) {
                 
-                
+                // table sorting
+                $scope.sortType     = 'name';
+                $scope.sortReverse  = false;
                 
             }
         };
@@ -94,7 +96,9 @@ app.directive('listWidgets', [
             },
             controller: function ($scope, $window) {
                 
-                
+                // table sorting
+                $scope.sortType     = 'name';
+                $scope.sortReverse  = false;
                 
             }
         };
