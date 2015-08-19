@@ -18,7 +18,7 @@
                             <i ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></i>
                         </a>
                     </th>
-                    <th ng-if="!simpleView">
+                    <th>
                         <a ng-click="sortType = 'color'; sortReverse = !sortReverse">Color
                             <i ng-show="sortType == 'color' && !sortReverse" class="fa fa-caret-down"></i>
                             <i ng-show="sortType == 'color' && sortReverse" class="fa fa-caret-up"></i>
@@ -48,7 +48,7 @@
                 <tr ng-repeat="widget in widgets | orderBy : sortType : sortReverse | filter: searchQuery as searchResults" ui-sref="widgetDetails({ id: widget.id })">
                     <td class="text-center">{{ widget.id }}</td>
                     <td>{{ widget.name }}</td>
-                    <td ng-if="!simpleView">{{ widget.color }}</td>
+                    <td>{{ widget.color }}</td>
                     <td ng-if="!simpleView">{{ widget.price | currency }}</td>
                     <td ng-if="!simpleView">{{ widget.melts ? 'Yes' : 'No' }}</td>
                     <td ng-if="!simpleView">{{ widget.inventory }}</td>
