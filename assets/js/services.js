@@ -61,6 +61,26 @@ app.factory('_widgets', ['$http', 'API_URL',
             });
         };
         
+        widgets.getColorOptions = function() {
+            return $http.get(API_URL + '/widgets').then(function(response) {
+                
+                var colors = [];
+                
+                if (response.data) {
+                    
+                    angular.forEach(response.data, function(item) {
+                        if (colors.indexOf(item.color) == -1) {
+                            colors.push(item.color)
+                        }
+                    });
+                    
+                } 
+                
+                return colors;
+
+            });
+        };
+        
         return widgets;
         
     }
