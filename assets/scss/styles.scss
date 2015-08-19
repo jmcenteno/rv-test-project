@@ -4,6 +4,10 @@
         overflow-y: auto;
     }
     
+    .table-hover tbody tr {
+        cursor: pointer;
+    }
+    
 }
 
 #dashboard-page {

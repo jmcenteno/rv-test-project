@@ -2,20 +2,24 @@
 .widget .table-scroll {
   overflow-y: auto;
 }
+/* line 7, ../assets/scss/styles.scss */
+.widget .table-hover tbody tr {
+  cursor: pointer;
+}
 
-/* line 11, ../assets/scss/styles.scss */
+/* line 15, ../assets/scss/styles.scss */
 #dashboard-page .table-scroll {
   max-height: 300px;
 }
 
-/* line 19, ../assets/scss/styles.scss */
+/* line 23, ../assets/scss/styles.scss */
 .panel .form-group {
   border-bottom: solid 1px #eee;
   margin: 0;
   padding-top: 15px;
   padding-bottom: 15px;
 }
-/* line 25, ../assets/scss/styles.scss */
+/* line 29, ../assets/scss/styles.scss */
 .panel .form-group:last-child {
   border-bottom: none;
 }
