@@ -211,14 +211,19 @@ app.controller('MainCtrl', ['$scope',
 app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
     function ($scope, _users, _widgets) {
         
+        $scope.usersTotal = 0;
+        $scope.widgetsTotal = 0;
+        
         // get all users
         _users.getAllUsers().then(function (data) {
             $scope.users = data;
+            $scope.usersTotal = data.length;
         });
         
         // get all widgets
         _widgets.getAllWidgets().then(function (data) {
             $scope.widgets = data;
+            $scope.widgetsTotal = data.length;
         });
         
         // set the page title
@@ -493,6 +498,40 @@ app.directive('breadcrumb', [
         
     }
 ]);
+
+app.directive('animateValue', [
+    function () {
+        
+        return {
+            restrict: 'A',
+            scope: {
+                total: '=animateValue'
+            },
+            link: function (scope, element, attrs) {
+                
+                scope.$watch(function () {
+                    
+                    return scope.total;
+                    
+                }, function (newValue, oldValue) {
+                    
+                    angular.element({ value: oldValue }).animate({
+                        value: newValue
+                    }, {
+                        duration: 3000,
+                        easing: 'swing',
+						step: function () {
+							element.text(Math.ceil(this.value));
+						}
+                    });
+                    
+                });
+                
+            }
+        };
+        
+    }
+])
 
 // Show a loading animation
 app.directive('loading', [

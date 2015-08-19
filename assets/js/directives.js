@@ -46,6 +46,40 @@ app.directive('breadcrumb', [
     }
 ]);
 
+app.directive('animateValue', [
+    function () {
+        
+        return {
+            restrict: 'A',
+            scope: {
+                total: '=animateValue'
+            },
+            link: function (scope, element, attrs) {
+                
+                scope.$watch(function () {
+                    
+                    return scope.total;
+                    
+                }, function (newValue, oldValue) {
+                    
+                    angular.element({ value: oldValue }).animate({
+                        value: newValue
+                    }, {
+                        duration: 3000,
+                        easing: 'swing',
+						step: function () {
+							element.text(Math.ceil(this.value));
+						}
+                    });
+                    
+                });
+                
+            }
+        };
+        
+    }
+])
+
 // Show a loading animation
 app.directive('loading', [
     function () {

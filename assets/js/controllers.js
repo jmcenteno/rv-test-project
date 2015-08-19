@@ -18,14 +18,19 @@ app.controller('MainCtrl', ['$scope',
 app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
     function ($scope, _users, _widgets) {
         
+        $scope.usersTotal = 0;
+        $scope.widgetsTotal = 0;
+        
         // get all users
         _users.getAllUsers().then(function (data) {
             $scope.users = data;
+            $scope.usersTotal = data.length;
         });
         
         // get all widgets
         _widgets.getAllWidgets().then(function (data) {
             $scope.widgets = data;
+            $scope.widgetsTotal = data.length;
         });
         
         // set the page title
