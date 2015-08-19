@@ -18,14 +18,19 @@ app.controller('MainCtrl', ['$scope',
 app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
     function ($scope, _users, _widgets) {
         
+        $scope.usersTotal = 0;
+        $scope.widgetsTotal = 0;
+        
         // get all users
         _users.getAllUsers().then(function (data) {
             $scope.users = data;
+            $scope.usersTotal = data.length;
         });
         
         // get all widgets
         _widgets.getAllWidgets().then(function (data) {
             $scope.widgets = data;
+            $scope.widgetsTotal = data.length;
         });
         
         // set the page title
@@ -70,14 +75,14 @@ app.controller('UsersCtrl', ['$scope', '_users',
 ]);
 
 // User details view controller
-app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
-    function ($scope, _users, $routeParams) {
+app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
+    function ($scope, _users, $stateParams) {
         
         // set the page title
         $scope.$parent.pageTitle = 'Users';
         
         // get the requested user
-        _users.getUser($routeParams.id).then(function (data) {    
+        _users.getUser($stateParams.id).then(function (data) {    
             
             $scope.user = data;
             
@@ -89,7 +94,7 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
                 },
                 {
                     text: 'Users',
-                    href: '/#/users'
+                    href: 'users'
                 },
                 {
                     text: data.name,
@@ -182,14 +187,14 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
 ]);
 
 // Widget details view controller
-app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$timeout',
-    function ($scope, _widgets, $routeParams, $timeout) {
+app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$timeout',
+    function ($scope, _widgets, $stateParams, $timeout) {
         
         // set page breadcrumbs
         $scope.$parent.pageTitle = 'Widgets';
         
         // get the requested widget
-        _widgets.getWidget($routeParams.id).then(function (data) {
+        _widgets.getWidget($stateParams.id).then(function (data) {
             
             $scope.widget = data;
             $scope.widget.price = parseFloat($scope.widget.price);
@@ -202,7 +207,7 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$tim
                 },
                 {
                     text: 'Widgets',
-                    href: '/#/widgets'
+                    href: 'widgets'
                 },
                 {
                     text: data.name,

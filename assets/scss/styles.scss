@@ -4,8 +4,19 @@
         overflow-y: auto;
     }
     
-    .table-hover tbody tr {
-        cursor: pointer;
+    .table {
+        
+        &.table-hover tbody tr {
+            cursor: pointer;
+        }
+        
+        thead th {
+            a:hover {
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+        
     }
     
 }

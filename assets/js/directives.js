@@ -46,6 +46,40 @@ app.directive('breadcrumb', [
     }
 ]);
 
+app.directive('animateValue', [
+    function () {
+        
+        return {
+            restrict: 'A',
+            scope: {
+                total: '=animateValue'
+            },
+            link: function (scope, element, attrs) {
+                
+                scope.$watch(function () {
+                    
+                    return scope.total;
+                    
+                }, function (newValue, oldValue) {
+                    
+                    angular.element({ value: oldValue }).animate({
+                        value: newValue
+                    }, {
+                        duration: 3000,
+                        easing: 'swing',
+						step: function () {
+							element.text(Math.ceil(this.value));
+						}
+                    });
+                    
+                });
+                
+            }
+        };
+        
+    }
+])
+
 // Show a loading animation
 app.directive('loading', [
     function () {
@@ -72,9 +106,9 @@ app.directive('listUsers', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/users/' + id;
-                };
+                // table sorting
+                $scope.sortType     = 'name';
+                $scope.sortReverse  = false;
                 
             }
         };
@@ -96,9 +130,9 @@ app.directive('listWidgets', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/widgets/' + id;
-                };
+                // table sorting
+                $scope.sortType     = 'name';
+                $scope.sortReverse  = false;
                 
             }
         };
@@ -120,8 +154,8 @@ app.directive('widgetCreate', ['_widgets',
 ]);
 
 // Back button
-app.directive('backButton', [
-    function () {
+app.directive('backButton', ['$state',
+    function ($state) {
         
         return {
             restrict: 'A',
@@ -129,7 +163,13 @@ app.directive('backButton', [
             replace: true,
             scope: {},
             link: function (scope, element, attrs) {
+                
                 scope.config = scope.$eval(attrs.backButton);
+                
+                scope.go = function (state, options) {
+                    $state.go(state, options);
+                };
+                
             }
         };
         

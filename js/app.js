@@ -4,7 +4,8 @@
 
 // define the module
 var app = angular.module('WidgetSpa', [
-    'ngRoute'
+    //'ngRoute'
+    'ui.router'
 ]);
 
 // Application constants
@@ -21,41 +22,44 @@ app.run(['$rootScope',
  * Set routes and interceptors heres
  */
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config(['$stateProvider', '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
         
         // declare application states (routes)
-        $routeProvider
+        $stateProvider
         
-        .when('/', {
+        .state('dashboard', {
+            url: '/',
             templateUrl: 'partials/pages/dashboard.html',
             controller: 'DashboardCtrl'
         })
         
-        .when('/users', {
+        .state('users', {
+            url: '/users',
             templateUrl: 'partials/pages/users.html',
             controller: 'UsersCtrl'
         })
         
-        .when('/users/:id', {
+        .state('userDetails', {
+            url: '/users/:id',
             templateUrl: 'partials/pages/user-details.html',
             controller: 'UserDetailsCtrl'
         })
         
-        .when('/widgets', {
+        .state('widgets', {
+            url: '/widgets',
             templateUrl: 'partials/pages/widgets.html',
             controller: 'WidgetsCtrl'
         })
         
-        .when('/widgets/:id', {
+        .state('widgetDetails', {
+            url: '/widgets/:id',
             templateUrl: 'partials/pages/widget-details.html',
             controller: 'WidgetDetailsCtrl'
-        })
+        });
         
         // redirect to dashboard if requested state is not defined
-        .otherwise({
-            redirectTo: '/'
-        });
+        $urlRouterProvider.otherwise('/');
         
     }
 ]);
@@ -207,14 +211,19 @@ app.controller('MainCtrl', ['$scope',
 app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
     function ($scope, _users, _widgets) {
         
+        $scope.usersTotal = 0;
+        $scope.widgetsTotal = 0;
+        
         // get all users
         _users.getAllUsers().then(function (data) {
             $scope.users = data;
+            $scope.usersTotal = data.length;
         });
         
         // get all widgets
         _widgets.getAllWidgets().then(function (data) {
             $scope.widgets = data;
+            $scope.widgetsTotal = data.length;
         });
         
         // set the page title
@@ -259,14 +268,14 @@ app.controller('UsersCtrl', ['$scope', '_users',
 ]);
 
 // User details view controller
-app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
-    function ($scope, _users, $routeParams) {
+app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
+    function ($scope, _users, $stateParams) {
         
         // set the page title
         $scope.$parent.pageTitle = 'Users';
         
         // get the requested user
-        _users.getUser($routeParams.id).then(function (data) {    
+        _users.getUser($stateParams.id).then(function (data) {    
             
             $scope.user = data;
             
@@ -278,7 +287,7 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$routeParams',
                 },
                 {
                     text: 'Users',
-                    href: '/#/users'
+                    href: 'users'
                 },
                 {
                     text: data.name,
@@ -371,14 +380,14 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
 ]);
 
 // Widget details view controller
-app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$timeout',
-    function ($scope, _widgets, $routeParams, $timeout) {
+app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$timeout',
+    function ($scope, _widgets, $stateParams, $timeout) {
         
         // set page breadcrumbs
         $scope.$parent.pageTitle = 'Widgets';
         
         // get the requested widget
-        _widgets.getWidget($routeParams.id).then(function (data) {
+        _widgets.getWidget($stateParams.id).then(function (data) {
             
             $scope.widget = data;
             $scope.widget.price = parseFloat($scope.widget.price);
@@ -391,7 +400,7 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$routeParams', '$tim
                 },
                 {
                     text: 'Widgets',
-                    href: '/#/widgets'
+                    href: 'widgets'
                 },
                 {
                     text: data.name,
@@ -490,6 +499,40 @@ app.directive('breadcrumb', [
     }
 ]);
 
+app.directive('animateValue', [
+    function () {
+        
+        return {
+            restrict: 'A',
+            scope: {
+                total: '=animateValue'
+            },
+            link: function (scope, element, attrs) {
+                
+                scope.$watch(function () {
+                    
+                    return scope.total;
+                    
+                }, function (newValue, oldValue) {
+                    
+                    angular.element({ value: oldValue }).animate({
+                        value: newValue
+                    }, {
+                        duration: 3000,
+                        easing: 'swing',
+						step: function () {
+							element.text(Math.ceil(this.value));
+						}
+                    });
+                    
+                });
+                
+            }
+        };
+        
+    }
+])
+
 // Show a loading animation
 app.directive('loading', [
     function () {
@@ -516,9 +559,9 @@ app.directive('listUsers', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/users/' + id;
-                };
+                // table sorting
+                $scope.sortType     = 'name';
+                $scope.sortReverse  = false;
                 
             }
         };
@@ -540,9 +583,9 @@ app.directive('listWidgets', [
             },
             controller: function ($scope, $window) {
                 
-                $scope.go = function (id) {
-                    $window.location.href = '/#/widgets/' + id;
-                };
+                // table sorting
+                $scope.sortType     = 'name';
+                $scope.sortReverse  = false;
                 
             }
         };
@@ -564,8 +607,8 @@ app.directive('widgetCreate', ['_widgets',
 ]);
 
 // Back button
-app.directive('backButton', [
-    function () {
+app.directive('backButton', ['$state',
+    function ($state) {
         
         return {
             restrict: 'A',
@@ -573,7 +616,13 @@ app.directive('backButton', [
             replace: true,
             scope: {},
             link: function (scope, element, attrs) {
+                
                 scope.config = scope.$eval(attrs.backButton);
+                
+                scope.go = function (state, options) {
+                    $state.go(state, options);
+                };
+                
             }
         };
         

@@ -8,13 +8,23 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="text-center">ID</th>
-                    <th>Name</th>
+                    <th class="text-center">
+                        <a ng-click="sortType = 'id'; sortReverse = !sortReverse">ID
+                            <i ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></i>
+                            <i ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <a ng-click="sortType = 'name'; sortReverse = !sortReverse">Name
+                            <i ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></i>
+                            <i ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></i>
+                        </a>
+                    </th>
                     <th>Avatar</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in users | filter: searchQuery as searchResults" ng-click="go(user.id)">
+                <tr ng-repeat="user in users | orderBy : sortType : sortReverse | filter: searchQuery as searchResults" ui-sref="userDetails({ id: user.id })">
                     <td class="text-center">{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>
