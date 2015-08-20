@@ -659,8 +659,10 @@ app.directive('breadcrumb', ['$state',
             restrict: 'A',
             link: function (scope, element, attrs) {
 
-                scope.$watch(function () {
+                scope.$watchCollection(function () {
+                    
                     return scope.breadcrumb;
+                    
                 }, function (value) {
 
                     if (angular.isArray(value)) {
