@@ -5,7 +5,7 @@
         </div>
     </div>
     <div ng-class="{ 'scrollable': config.scrollable }">
-        <table class="table table-hover">
+        <table class="table" ng-class="{ 'table-hover': config.data != null && searchResults.length > 0 }">
             <thead>
                 <tr>
                     <th ng-repeat="item in config.headers">
@@ -18,16 +18,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="row in config.data | orderBy : config.sortType : config.sortReverse | filter: searchQuery as searchResults" ui-sref="{{ row.sref }}">
+                <tr ng-repeat="row in config.data | orderBy : config.sortType : config.sortReverse | filter: searchQuery as searchResults" ui-sref="{{ row.sref }}" class="animate">
                     <td ng-repeat="cell in config.headers" ng-bind-html="row[cell.field]"></td>
                 </tr>
                 <tr ng-if="searchResults.length == 0">
-                    <td colspan="config.headers.length" class="text-center" width="100%">
+                    <td colspan="{{ config.headers.length }}" class="text-center full-width">
                         No records found
                     </td>
                 </tr>
                 <tr ng-if="!config.data">
-                    <td colspan="config.headers.length" data-loading="" width="100%">
+                    <td colspan="{{ config.headers.length }}" data-loading="" class="full-width">
                     </td>
                 </tr>
             </tbody>
