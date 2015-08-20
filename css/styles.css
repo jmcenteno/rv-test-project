@@ -43,22 +43,34 @@
   width: auto;
 }
 
-/* line 74, ../assets/scss/styles.scss */
+/* line 67, ../assets/scss/styles.scss */
+.panel .form-group {
+  border-bottom: solid 1px #eee;
+  margin: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+/* line 73, ../assets/scss/styles.scss */
+.panel .form-group:last-child {
+  border-bottom: none;
+}
+
+/* line 90, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable thead th:nth-child(1),
 #dashboard-page .widget .scrollable tbody td:nth-child(1) {
   width: 20%;
 }
-/* line 78, ../assets/scss/styles.scss */
+/* line 94, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable thead th:nth-child(2),
 #dashboard-page .widget .scrollable tbody td:nth-child(2) {
   width: 50%;
 }
-/* line 82, ../assets/scss/styles.scss */
+/* line 98, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable thead th:nth-child(3),
 #dashboard-page .widget .scrollable tbody td:nth-child(3) {
   width: 30%;
 }
-/* line 90, ../assets/scss/styles.scss */
+/* line 106, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable tbody tr:after {
   content: "";
   clear: both;
@@ -66,14 +78,11 @@
   width: 100%;
 }
 
-/* line 107, ../assets/scss/styles.scss */
-.panel .form-group {
-  border-bottom: solid 1px #eee;
-  margin: 0;
-  padding-top: 15px;
-  padding-bottom: 15px;
+/* line 127, ../assets/scss/styles.scss */
+#users-list-page .table tbody td:nth-child(1) {
+  width: 100px;
 }
-/* line 113, ../assets/scss/styles.scss */
-.panel .form-group:last-child {
-  border-bottom: none;
+/* line 131, ../assets/scss/styles.scss */
+#users-list-page .table tbody td:nth-child(3) {
+  width: 150px;
 }
