@@ -1,6 +1,9 @@
 @import 'mixins/vendor-prefixes';
 #sidebar-wrapper {
     .sidebar > li {
+        a {
+            cursor: pointer;
+        }
         &.active {
             background-color: lighten(#30426a, 5%);
         }
