@@ -16,10 +16,6 @@
 
 .widget {
     
-    .table-scroll {
-        overflow-y: auto;
-    }
-    
     .table {
         
         &.table-hover tbody tr {
@@ -35,12 +31,73 @@
         
     }
     
+    .scrollable {
+        position: relative;
+        height: 300px;
+
+        tbody {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin-top: 37px;
+            overflow-y: auto;
+
+            tr {
+                display: block;
+                
+                td {
+                    display: block;
+                    float: left;
+                    width: auto;
+                }
+                
+            }
+
+        }
+
+    }
+    
 }
 
 #dashboard-page {
 	
-    .table-scroll {
-        max-height: 300px;
+    .widget {
+	   
+        .scrollable {
+            
+            thead th,
+            tbody td {
+                
+                &:nth-child(1) {
+                    width: 20%
+                }
+                
+                &:nth-child(2) {
+                    width: 50%
+                }
+                
+                &:nth-child(3) {
+                    width: 30%
+                }
+                
+            }
+            
+            tbody {
+            
+                tr:after {
+                    content: "";
+                    clear: both;
+                    display: block;
+                    width: 100%;
+                }
+                
+            }
+            
+        }
+        
     }
     
 }

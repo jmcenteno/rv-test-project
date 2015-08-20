@@ -7,33 +7,73 @@
   padding-top: 10px;
 }
 
-/* line 19, ../assets/scss/styles.scss */
-.widget .table-scroll {
-  overflow-y: auto;
-}
-/* line 25, ../assets/scss/styles.scss */
+/* line 21, ../assets/scss/styles.scss */
 .widget .table.table-hover tbody tr {
   cursor: pointer;
 }
-/* line 30, ../assets/scss/styles.scss */
+/* line 26, ../assets/scss/styles.scss */
 .widget .table thead th a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-
-/* line 42, ../assets/scss/styles.scss */
-#dashboard-page .table-scroll {
-  max-height: 300px;
+/* line 34, ../assets/scss/styles.scss */
+.widget .scrollable {
+  position: relative;
+  height: 300px;
+}
+/* line 38, ../assets/scss/styles.scss */
+.widget .scrollable tbody {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: 37px;
+  overflow-y: auto;
+}
+/* line 48, ../assets/scss/styles.scss */
+.widget .scrollable tbody tr {
+  display: block;
+}
+/* line 51, ../assets/scss/styles.scss */
+.widget .scrollable tbody tr td {
+  display: block;
+  float: left;
+  width: auto;
 }
 
-/* line 50, ../assets/scss/styles.scss */
+/* line 74, ../assets/scss/styles.scss */
+#dashboard-page .widget .scrollable thead th:nth-child(1),
+#dashboard-page .widget .scrollable tbody td:nth-child(1) {
+  width: 20%;
+}
+/* line 78, ../assets/scss/styles.scss */
+#dashboard-page .widget .scrollable thead th:nth-child(2),
+#dashboard-page .widget .scrollable tbody td:nth-child(2) {
+  width: 50%;
+}
+/* line 82, ../assets/scss/styles.scss */
+#dashboard-page .widget .scrollable thead th:nth-child(3),
+#dashboard-page .widget .scrollable tbody td:nth-child(3) {
+  width: 30%;
+}
+/* line 90, ../assets/scss/styles.scss */
+#dashboard-page .widget .scrollable tbody tr:after {
+  content: "";
+  clear: both;
+  display: block;
+  width: 100%;
+}
+
+/* line 107, ../assets/scss/styles.scss */
 .panel .form-group {
   border-bottom: solid 1px #eee;
   margin: 0;
   padding-top: 15px;
   padding-bottom: 15px;
 }
-/* line 56, ../assets/scss/styles.scss */
+/* line 113, ../assets/scss/styles.scss */
 .panel .form-group:last-child {
   border-bottom: none;
 }

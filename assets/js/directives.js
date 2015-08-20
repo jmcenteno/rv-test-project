@@ -94,47 +94,15 @@ app.directive('loading', [
     }
 ]);
 
-// List users in a HTML table
-app.directive('listUsers', [
-    function () {
+// Sortable HTML table generator
+app.directive('gridView', ['$state',
+    function ($state) {
         
         return {
             restrict: 'A',
-            templateUrl: 'partials/directives/list-users.html',
-            replace: true,
+            templateUrl: 'partials/directives/grid-view.html',
             scope: {
-                users: '=listUsers'
-            },
-            controller: function ($scope, $window) {
-                
-                // table sorting
-                $scope.sortType     = 'name';
-                $scope.sortReverse  = false;
-                
-            }
-        };
-        
-    }
-]);
-
-// List widgets in a HTML table
-app.directive('listWidgets', [
-    function () {
-        
-        return {
-            restrict: 'A',
-            templateUrl: 'partials/directives/list-widgets.html',
-            replace: true,
-            scope: {
-                widgets: '=listWidgets',
-                simpleView: '=simpleView'
-            },
-            controller: function ($scope, $window) {
-                
-                // table sorting
-                $scope.sortType     = 'name';
-                $scope.sortReverse  = false;
-                
+                config: '=gridView'
             }
         };
         
