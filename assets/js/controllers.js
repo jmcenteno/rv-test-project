@@ -18,9 +18,46 @@ app.controller('MainCtrl', ['$scope',
 app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
     function ($scope, _users, _widgets, $filter) {
         
+        // set the page title
+        $scope.$parent.pageTitle = 'Dashboard';
+        
+        // set page breadcrumbs
+        $scope.$parent.breadcrumb = [
+            {
+                text: 'Home',
+                href: null
+            }
+        ];
+        
         $scope.usersTotal = 0;
         $scope.widgetsTotal = 0;
         $scope.tblData = {};
+        
+        // users grid-view configuration
+        $scope.tblData.users = {
+            title: 'Users',
+            headers: [
+                {
+                    label: 'ID',
+                    field: 'id',
+                    sortable: true
+                },
+                {
+                    label: 'Name',
+                    field: 'name',
+                    sortable: true
+                },
+                {
+                    label: 'Avatar',
+                    field: 'gravatar',
+                    sortable: false
+                }
+            ],
+            data: null,
+            sortType: 'name',
+            sortReverse: false,
+            scrollable: true
+        };
         
         // get all users
         _users.getAllUsers().then(function (data) {
@@ -33,32 +70,35 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
                 return item;
             });
             
-            $scope.tblData.users = {
-                title: 'Users',
-                headers: [
-                    {
-                        label: 'ID',
-                        field: 'id',
-                        sortable: true
-                    },
-                    {
-                        label: 'Name',
-                        field: 'name',
-                        sortable: true
-                    },
-                    {
-                        label: 'Avatar',
-                        field: 'gravatar',
-                        sortable: false
-                    }
-                ],
-                data: data,
-                sortType: 'name',
-                sortReverse: false,
-                scrollable: true
-            };
+            $scope.tblData.users.data = data;
             
         });
+        
+        // widgets grid-view configuration
+        $scope.tblData.widgets = {
+            title: 'Widgets',
+            headers: [
+                {
+                    label: 'ID',
+                    field: 'id',
+                    sortable: true
+                },
+                {
+                    label: 'Name',
+                    field: 'name',
+                    sortable: true
+                },
+                {
+                    label: 'Color',
+                    field: 'color',
+                    sortable: true
+                }
+            ],
+            data: null,
+            sortType: 'name',
+            sortReverse: false,
+            scrollable: true
+        };
         
         // get all widgets
         _widgets.getAllWidgets().then(function (data) {
@@ -75,43 +115,9 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
                 
             });
             
-            $scope.tblData.widgets = {
-                title: 'Widgets',
-                headers: [
-                    {
-                        label: 'ID',
-                        field: 'id',
-                        sortable: true
-                    },
-                    {
-                        label: 'Name',
-                        field: 'name',
-                        sortable: true
-                    },
-                    {
-                        label: 'Color',
-                        field: 'color',
-                        sortable: true
-                    }
-                ],
-                data: data,
-                sortType: 'name',
-                sortReverse: false,
-                scrollable: true
-            };
+            $scope.tblData.widgets.data = data;
             
         });
-        
-        // set the page title
-        $scope.$parent.pageTitle = 'Dashboard';
-        
-        // set page breadcrumbs
-        $scope.$parent.breadcrumb = [
-            {
-                text: 'Home',
-                href: null
-            }
-        ];
         
     }
 ]);
@@ -119,41 +125,6 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
 // Users list view controller
 app.controller('UsersCtrl', ['$scope', '_users',
     function ($scope, _users) {
-        
-        // get all users
-        _users.getAllUsers().then(function (data) {    
-            
-            data = data.map(function (item) {
-                item.gravatar = '<img src="' + item.gravatar + '" alt="' + item.name + '">';
-                item.sref = 'userDetails({ id: ' + item.id + '})';
-                return item;
-            });
-            
-            $scope.tblData = {
-                title: 'Users',
-                headers: [
-                    {
-                        label: 'ID',
-                        field: 'id',
-                        sortable: true
-                    },
-                    {
-                        label: 'Name',
-                        field: 'name',
-                        sortable: true
-                    },
-                    {
-                        label: 'Avatar',
-                        field: 'gravatar',
-                        sortable: false
-                    }
-                ],
-                data: data,
-                sortType: 'name',
-                sortReverse: false
-            };
-            
-        });
         
         // set the page title
         $scope.$parent.pageTitle = 'Users';
@@ -170,6 +141,44 @@ app.controller('UsersCtrl', ['$scope', '_users',
             }
         ];
         
+        // grid-view configuration
+        $scope.tblData = {
+            title: 'Users',
+            headers: [
+                {
+                    label: 'ID',
+                    field: 'id',
+                    sortable: true
+                },
+                {
+                    label: 'Name',
+                    field: 'name',
+                    sortable: true
+                },
+                {
+                    label: 'Avatar',
+                    field: 'gravatar',
+                    sortable: false
+                }
+            ],
+            data: null,
+            sortType: 'name',
+            sortReverse: false
+        };
+        
+        // get all users
+        _users.getAllUsers().then(function (data) {    
+            
+            data = data.map(function (item) {
+                item.gravatar = '<img src="' + item.gravatar + '" alt="' + item.name + '">';
+                item.sref = 'userDetails({ id: ' + item.id + '})';
+                return item;
+            });
+            
+            $scope.tblData.data = data;
+            
+        });
+        
     }
 ]);
 
@@ -180,26 +189,27 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
         // set the page title
         $scope.$parent.pageTitle = 'Users';
         
+        // set page breadcrumbs
+        $scope.$parent.breadcrumb = [
+            {
+                text: 'Home',
+                href: 'dashboard'
+            },
+            {
+                text: 'Users',
+                href: 'users'
+            }
+        ];
+        
         // get the requested user
         _users.getUser($stateParams.id).then(function (data) {    
             
             $scope.user = data;
             
-            // set page breadcrumbs
-            $scope.$parent.breadcrumb = [
-                {
-                    text: 'Home',
-                    href: 'dashboard'
-                },
-                {
-                    text: 'Users',
-                    href: 'users'
-                },
-                {
-                    text: data.name,
-                    href: null
-                }
-            ];
+            $scope.$parent.breadcrumb.push({
+                text: data.name,
+                href: null
+            });
             
         });
         
@@ -211,7 +221,7 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
     function ($scope, _widgets, $timeout, $filter) {
         
         // set the page title
-        $scope.$parent.pageTitle = 'Dashboard';
+        $scope.$parent.pageTitle = 'Widgets';
         
         // set page breadcrumbs
         $scope.$parent.breadcrumb = [
@@ -225,53 +235,58 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
             }
         ];
         
+        $scope.tblData = {
+            title: 'Widgets',
+            headers: [
+                {
+                    label: 'ID',
+                    field: 'id',
+                    sortable: true
+                },
+                {
+                    label: 'Name',
+                    field: 'name',
+                    sortable: true
+                },
+                {
+                    label: 'Color',
+                    field: 'color',
+                    sortable: true
+                },
+                {
+                    label: 'Price',
+                    field: 'price',
+                    sortable: true
+                },
+                {
+                    label: 'Melts?',
+                    field: 'melts',
+                    sortable: true
+                },
+                {
+                    label: 'Inventory',
+                    field: 'inventory',
+                    sortable: true
+                }
+            ],
+            data: null,
+            sortType: 'name',
+            sortReverse: false
+        };
+        
         _widgets.getAllWidgets().then(function (data) {
             
             data = data.map(function (item) {
+            
                 item.price = $filter('currency')(item.price);
                 item.melts = (item.melts ? 'Yes' : 'No');
                 item.sref = 'widgetDetails({ id: ' + item.id + '})';
+                
                 return item;
+            
             });
             
-            $scope.tblData = {
-                title: 'Widgets',
-                headers: [
-                    {
-                        label: 'ID',
-                        field: 'id',
-                        sortable: true
-                    },
-                    {
-                        label: 'Name',
-                        field: 'name',
-                        sortable: true
-                    },
-                    {
-                        label: 'Color',
-                        field: 'color',
-                        sortable: true
-                    },
-                    {
-                        label: 'Price',
-                        field: 'price',
-                        sortable: true
-                    },
-                    {
-                        label: 'Melts?',
-                        field: 'melts',
-                        sortable: true
-                    },
-                    {
-                        label: 'Inventory',
-                        field: 'inventory',
-                        sortable: true
-                    }
-                ],
-                data: data,
-                sortType: 'name',
-                sortReverse: false
-            };
+            $scope.tblData.data = data;
             
         });
         
@@ -338,27 +353,28 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$tim
         // set page breadcrumbs
         $scope.$parent.pageTitle = 'Widgets';
         
+        // set page breadcrumbs
+        $scope.$parent.breadcrumb = [
+            {
+                text: 'Home',
+                href: 'dashboard'
+            },
+            {
+                text: 'Widgets',
+                href: 'widgets'
+            }
+        ];
+        
         // get the requested widget
         _widgets.getWidget($stateParams.id).then(function (data) {
             
             $scope.widget = data;
             $scope.widget.price = parseFloat($scope.widget.price);
             
-            // set page breadcrumbs
-            $scope.$parent.breadcrumb = [
-                {
-                    text: 'Home',
-                    href: 'dashboard'
-                },
-                {
-                    text: 'Widgets',
-                    href: 'widgets'
-                },
-                {
-                    text: data.name,
-                    href: null
-                }
-            ];
+            $scope.$parent.breadcrumb.push({
+                text: data.name,
+                href: null
+            });
             
         });
         
