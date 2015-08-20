@@ -4,8 +4,8 @@
  */
 
 //Generate breadcrumb navigation
-app.directive('breadcrumb', [
-    function () {
+app.directive('breadcrumb', ['$state',
+    function ($state) {
         
         return {
             restrict: 'A',
@@ -24,7 +24,7 @@ app.directive('breadcrumb', [
                             
                             if (item.href != null) {
                                 
-                                breadcrumb.push('<a href="' + item.href + '">' + item.text + '</a>');
+                                breadcrumb.push('<a href="' + $state.href(item.href) + '">' + item.text + '</a>');
                                 
                             } else {
                                 
@@ -134,10 +134,7 @@ app.directive('backButton', ['$state',
             link: function (scope, element, attrs) {
                 
                 scope.config = scope.$eval(attrs.backButton);
-                
-                scope.go = function (state, options) {
-                    $state.go(state, options);
-                };
+                scope.config.state = $state.href(scope.config.state);                
                 
             }
         };
