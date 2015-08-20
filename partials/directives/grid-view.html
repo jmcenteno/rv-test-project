@@ -4,7 +4,7 @@
             <input type="text" class="form-control input-sm" placeholder="Search" ng-model="searchQuery">
         </div>
     </div>
-    <div ng-class="{ 'scrollable': config.scrollable }">
+    <div ng-class="config.scrollable ? 'scrollable' : 'table-responsive'">
         <table class="table" ng-class="{ 'table-hover': config.data != null && searchResults.length > 0 }">
             <thead>
                 <tr>
