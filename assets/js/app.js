@@ -5,6 +5,7 @@
 // define the module
 var app = angular.module('WidgetSpa', [
     'ui.router',
+    'ngAnimate',
     'ngSanitize'
 ]);
 
