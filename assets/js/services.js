@@ -12,9 +12,9 @@
  */
 app.factory('_users', ['$http', 'API_URL',
     function ($http, API_URL) {
-        
+
         var users = {};
-        
+
         /**
          * Get all users
          * @returns {array} Collection of user objects
@@ -24,7 +24,7 @@ app.factory('_users', ['$http', 'API_URL',
                 return response.data;
             });
         };
-        
+
         /**
          * Get one user
          * @param   {int} id User ID
@@ -35,9 +35,9 @@ app.factory('_users', ['$http', 'API_URL',
                 return response.data;
             });
         };
-        
+
         return users;
-        
+
     }
 ]);
 
@@ -49,9 +49,9 @@ app.factory('_users', ['$http', 'API_URL',
  */
 app.factory('_widgets', ['$http', 'API_URL',
     function ($http, API_URL) {
-        
+
         var widgets = {};
-        
+
         /**
          * Get all widgets
          * @returns {array} Collection of widget objects
@@ -61,7 +61,7 @@ app.factory('_widgets', ['$http', 'API_URL',
                 return response.data;
             });
         };
-        
+
         /**
          * Get on widget
          * @param   {int} id Widget ID
@@ -72,7 +72,7 @@ app.factory('_widgets', ['$http', 'API_URL',
                 return response.data;
             });
         };
-        
+
         /**
          * Create a new widget
          * @param   {object} params Object with all properties that make a single widget
@@ -83,7 +83,7 @@ app.factory('_widgets', ['$http', 'API_URL',
                 return response.data;
             });
         };
-        
+
         /**
          * Edit an existing widget
          * @param   {int} id     Widget ID
@@ -95,34 +95,34 @@ app.factory('_widgets', ['$http', 'API_URL',
                 return response.data;
             });
         };
-        
+
         /**
          * Generate a list of colors from existing widgets
          * @returns {array} Collection with unique color values
          */
         widgets.getColorOptions = function () {
             return $http.get(API_URL + '/widgets').then(function (response) {
-                
+
                 var colors = [];
-                
+
                 if (response.data) {
-                    
+
                     angular.forEach(response.data, function (item) {
                         if (colors.indexOf(item.color) == -1) {
                             colors.push(item.color)
                         }
                     });
-                    
+
                     colors = colors.sort();
-                    
-                } 
-                
+
+                }
+
                 return colors;
 
             });
         };
-        
+
         return widgets;
-        
+
     }
 ]);

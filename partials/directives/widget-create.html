@@ -15,8 +15,7 @@
                 <div class="col-xs-12">
                     <div role="alert" class="alert alert-danger alert-dismissible fade in">
                         <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
-                        <h4>Error</h4>
-                        Your request cannot be processed at this time. Please try again.
+                        <h4>Error</h4> Your request cannot be processed at this time. Please try again.
                     </div>
                 </div>
             </div>
@@ -33,7 +32,7 @@
                         <div class="col-sm-6">
                             <select ng-model="widget.color" name="color" ng-options="option for option in colors" class="form-control" required ng-disabled="processing">
                                 <option value="">Select a Color</option>
-                            </select>        
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -45,7 +44,7 @@
                     <div class="form-group">
                         <div class="control-label col-sm-4">Melts</div>
                         <div class="col-sm-6">
-                            <div class="checkbox">  
+                            <div class="checkbox">
                                 <label>
                                     <input type="checkbox" ng-model="widget.melts" name="melts" ng-disabled="processing">
                                 </label>
@@ -60,10 +59,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetForm()">Cancel</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetForm()">Cancel</button>
                     <button type="submit" class="btn btn-primary" ng-disabled="processing">{{ !processing ? 'Submit' : 'Please wait' }}</button>
                 </div>
-            </form>  
+            </form>
         </div>
     </div>
 </div>
