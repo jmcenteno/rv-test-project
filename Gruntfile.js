@@ -45,8 +45,8 @@ module.exports = function(grunt) {
 				src: [
                     'components/jquery/dist/jquery.min.js',
 					'components/angular/angular.min.js',
-					//'components/angular-route/angular-route.js',
-                    'components/ui-router/release/angular-ui-router.js',
+                    'components/angular-sanitize/angular-sanitize.min.js',
+                    'components/angular-ui-router/release/angular-ui-router.min.js',
                     'components/bootstrap/dist/js/bootstrap.min.js',
 				],
 				dest: 'js/dependencies.js'
