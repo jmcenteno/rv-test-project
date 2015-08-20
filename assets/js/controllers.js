@@ -162,7 +162,7 @@ app.controller('UsersCtrl', ['$scope', '_users',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                href: 'dashboard'
             },
             {
                 text: 'Users',
@@ -189,7 +189,7 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    href: '/#/'
+                    href: 'dashboard'
                 },
                 {
                     text: 'Users',
@@ -217,7 +217,7 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
         $scope.$parent.breadcrumb = [
             {
                 text: 'Home',
-                href: '/#/'
+                href: 'dashboard'
             },
             {
                 text: 'Widgets',
@@ -348,7 +348,7 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$tim
             $scope.$parent.breadcrumb = [
                 {
                     text: 'Home',
-                    href: '/#/'
+                    href: 'dashboard'
                 },
                 {
                     text: 'Widgets',
