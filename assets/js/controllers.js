@@ -15,22 +15,91 @@ app.controller('MainCtrl', ['$scope',
 ]);
 
 // Home page controller
-app.controller('DashboardCtrl', ['$scope', '_users', '_widgets',
-    function ($scope, _users, _widgets) {
+app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
+    function ($scope, _users, _widgets, $filter) {
         
         $scope.usersTotal = 0;
         $scope.widgetsTotal = 0;
+        $scope.tblData = {};
         
         // get all users
         _users.getAllUsers().then(function (data) {
-            $scope.users = data;
+            
             $scope.usersTotal = data.length;
+            
+            data = data.map(function (item) {
+                item.gravatar = '<img src="' + item.gravatar + '" alt="' + item.name + '">';
+                item.sref = 'userDetails({ id: ' + item.id + '})';
+                return item;
+            });
+            
+            $scope.tblData.users = {
+                title: 'Users',
+                headers: [
+                    {
+                        label: 'ID',
+                        field: 'id',
+                        sortable: true
+                    },
+                    {
+                        label: 'Name',
+                        field: 'name',
+                        sortable: true
+                    },
+                    {
+                        label: 'Avatar',
+                        field: 'gravatar',
+                        sortable: false
+                    }
+                ],
+                data: data,
+                sortType: 'name',
+                sortReverse: false,
+                scrollable: true
+            };
+            
         });
         
         // get all widgets
         _widgets.getAllWidgets().then(function (data) {
-            $scope.widgets = data;
+            
             $scope.widgetsTotal = data.length;
+            
+            data = data.map(function (item) {
+                
+                item.price = $filter('currency')(item.price);
+                item.melts = (item.melts ? 'Yes' : 'No');
+                item.sref = 'widgetDetails({ id: ' + item.id + '})';
+                
+                return item;
+                
+            });
+            
+            $scope.tblData.widgets = {
+                title: 'Widgets',
+                headers: [
+                    {
+                        label: 'ID',
+                        field: 'id',
+                        sortable: true
+                    },
+                    {
+                        label: 'Name',
+                        field: 'name',
+                        sortable: true
+                    },
+                    {
+                        label: 'Color',
+                        field: 'color',
+                        sortable: true
+                    }
+                ],
+                data: data,
+                sortType: 'name',
+                sortReverse: false,
+                scrollable: true
+            };
+            
         });
         
         // set the page title
@@ -53,7 +122,37 @@ app.controller('UsersCtrl', ['$scope', '_users',
         
         // get all users
         _users.getAllUsers().then(function (data) {    
-            $scope.users = data;
+            
+            data = data.map(function (item) {
+                item.gravatar = '<img src="' + item.gravatar + '" alt="' + item.name + '">';
+                item.sref = 'userDetails({ id: ' + item.id + '})';
+                return item;
+            });
+            
+            $scope.tblData = {
+                title: 'Users',
+                headers: [
+                    {
+                        label: 'ID',
+                        field: 'id',
+                        sortable: true
+                    },
+                    {
+                        label: 'Name',
+                        field: 'name',
+                        sortable: true
+                    },
+                    {
+                        label: 'Avatar',
+                        field: 'gravatar',
+                        sortable: false
+                    }
+                ],
+                data: data,
+                sortType: 'name',
+                sortReverse: false
+            };
+            
         });
         
         // set the page title
@@ -108,8 +207,8 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
 ]);
 
 // Widgets list view controller
-app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
-    function ($scope, _widgets, $timeout) {
+app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
+    function ($scope, _widgets, $timeout, $filter) {
         
         // set the page title
         $scope.$parent.pageTitle = 'Dashboard';
@@ -127,7 +226,53 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout',
         ];
         
         _widgets.getAllWidgets().then(function (data) {
-            $scope.widgets = data;
+            
+            data = data.map(function (item) {
+                item.price = $filter('currency')(item.price);
+                item.melts = (item.melts ? 'Yes' : 'No');
+                item.sref = 'widgetDetails({ id: ' + item.id + '})';
+                return item;
+            });
+            
+            $scope.tblData = {
+                title: 'Widgets',
+                headers: [
+                    {
+                        label: 'ID',
+                        field: 'id',
+                        sortable: true
+                    },
+                    {
+                        label: 'Name',
+                        field: 'name',
+                        sortable: true
+                    },
+                    {
+                        label: 'Color',
+                        field: 'color',
+                        sortable: true
+                    },
+                    {
+                        label: 'Price',
+                        field: 'price',
+                        sortable: true
+                    },
+                    {
+                        label: 'Melts?',
+                        field: 'melts',
+                        sortable: true
+                    },
+                    {
+                        label: 'Inventory',
+                        field: 'inventory',
+                        sortable: true
+                    }
+                ],
+                data: data,
+                sortType: 'name',
+                sortReverse: false
+            };
+            
         });
         
         _widgets.getColorOptions().then(function (data) {

@@ -4,8 +4,8 @@
 
 // define the module
 var app = angular.module('WidgetSpa', [
-    //'ngRoute'
-    'ui.router'
+    'ui.router',
+    'ngSanitize'
 ]);
 
 // Application constants

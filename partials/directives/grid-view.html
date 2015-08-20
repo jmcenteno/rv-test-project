@@ -1,0 +1,36 @@
+<div class="widget">
+    <div class="widget-header">{{ config.title }}
+        <div class="pull-right">
+            <input type="text" class="form-control input-sm" placeholder="Search" ng-model="searchQuery">
+        </div>
+    </div>
+    <div ng-class="{ 'scrollable': config.scrollable }">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th ng-repeat="item in config.headers">
+                        <a ng-click="config.sortType = item.field; config.sortReverse = !config.sortReverse" ng-if="item.sortable">{{ item.label }}
+                            <i ng-show="config.sortType == item.field && !config.sortReverse" class="fa fa-caret-down"></i>
+                            <i ng-show="config.sortType == item.field && config.sortReverse" class="fa fa-caret-up"></i>
+                        </a>
+                        <span ng-if="!item.sortable">{{ item.label }}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in config.data | orderBy : config.sortType : config.sortReverse | filter: searchQuery as searchResults" ui-sref="{{ row.sref }}">
+                    <td ng-repeat="cell in config.headers" ng-bind-html="row[cell.field]"></td>
+                </tr>
+                <tr ng-if="searchResults.length == 0">
+                    <td colspan="config.headers.length" class="text-center" width="100%">
+                        No records found
+                    </td>
+                </tr>
+                <tr ng-if="!config.data">
+                    <td colspan="config.headers.length" data-loading="" width="100%">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
