@@ -97,9 +97,17 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
             $scope.usersTotal = data.length;
 
             data = data.map(function (item) {
+                
                 item.gravatar = '<img src="' + item.gravatar + '" alt="' + item.name + '">';
-                item.sref = 'userDetails({ id: ' + item.id + '})';
+                item.sref = {
+                    name: 'userDetails',
+                    params: { 
+                        id: item.id
+                    }
+                }
+                
                 return item;
+                
             });
 
             $scope.tblData.users.data = data;
@@ -141,7 +149,12 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
 
                 item.price = $filter('currency')(item.price);
                 item.melts = (item.melts ? 'Yes' : 'No');
-                item.sref = 'widgetDetails({ id: ' + item.id + '})';
+                item.sref = {
+                    name: 'widgetDetails',
+                    params: { 
+                        id: item.id 
+                    }
+                }
 
                 return item;
 
@@ -202,9 +215,17 @@ app.controller('UsersCtrl', ['$scope', '_users',
         _users.getAllUsers().then(function (data) {
 
             data = data.map(function (item) {
+                
                 item.gravatar = '<img src="' + item.gravatar + '" alt="' + item.name + '">';
-                item.sref = 'userDetails({ id: ' + item.id + '})';
+                item.sref = {
+                    name: 'userDetails',
+                    params: { 
+                        id: item.id
+                    }
+                };
+                
                 return item;
+                
             });
 
             $scope.tblData.data = data;
@@ -312,7 +333,12 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
 
                 item.price = $filter('currency')(item.price);
                 item.melts = (item.melts ? 'Yes' : 'No');
-                item.sref = 'widgetDetails({ id: ' + item.id + '})';
+                item.sref = {
+                    name: 'widgetDetails',
+                    params: { 
+                        id: item.id 
+                    }
+                };
 
                 return item;
 
