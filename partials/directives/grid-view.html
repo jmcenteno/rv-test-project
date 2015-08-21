@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="row in searchResults = (config.data | filter: searchQuery) | orderBy: config.sortType : config.sortReverse | itemsPerPage: itemsPerPage" pagination-id="config.title" ui-sref="{{ row.sref }}">
+                <tr dir-paginate="row in searchResults = (config.data | filter: searchQuery) | orderBy: config.sortType : config.sortReverse | itemsPerPage: itemsPerPage" pagination-id="config.title" ng-click="go(row.sref)">
                     <td ng-repeat="cell in config.headers" ng-bind-html="row[cell.field]"></td>
                 </tr>
                 <tr ng-if="searchResults.length == 0">
