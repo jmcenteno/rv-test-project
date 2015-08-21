@@ -107,6 +107,13 @@ app.directive('gridView', ['$state',
             templateUrl: 'partials/directives/grid-view.html',
             scope: {
                 config: '=gridView'
+            },
+            controller: function($scope) {
+                
+                $scope.itemsPerPageOptions = [10, 25, 50, 100];
+                $scope.itemsPerPage = $scope.itemsPerPageOptions[0];
+                $scope.currentPage = 0;
+                
             }
         };
 

@@ -1,45 +1,49 @@
-/* line 4, ../assets/scss/styles.scss */
+/* line 7, ../assets/scss/styles.scss */
 #sidebar-wrapper .sidebar > li a {
   cursor: pointer;
 }
-/* line 7, ../assets/scss/styles.scss */
+/* line 11, ../assets/scss/styles.scss */
 #sidebar-wrapper .sidebar > li.active {
   background-color: #384d7c;
 }
-/* line 11, ../assets/scss/styles.scss */
+/* line 17, ../assets/scss/styles.scss */
 #sidebar-wrapper .sidebar-footer {
   padding-top: 10px;
 }
 
-/* line 18, ../assets/scss/styles.scss */
+/* line 25, ../assets/scss/styles.scss */
+.widget .table {
+  margin-bottom: 0;
+}
+/* line 28, ../assets/scss/styles.scss */
 .widget .table.table-hover tbody tr {
   cursor: pointer;
 }
-/* line 22, ../assets/scss/styles.scss */
+/* line 34, ../assets/scss/styles.scss */
 .widget .table thead th a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-/* line 28, ../assets/scss/styles.scss */
+/* line 43, ../assets/scss/styles.scss */
 .widget .table tbody tr.animate.animate.ng-move, .widget .table tbody tr.animate.animate.ng-enter, .widget .table tbody tr.animate.animate.ng-leave {
   -webkit-transition: all 200ms ease-out 100ms;
   -o-transition: all 200ms ease-out 100ms;
   transition: all 200ms ease-out 100ms;
 }
-/* line 33, ../assets/scss/styles.scss */
+/* line 49, ../assets/scss/styles.scss */
 .widget .table tbody tr.animate.animate.ng-leave.ng-leave-active, .widget .table tbody tr.animate.animate.ng-move, .widget .table tbody tr.animate.animate.ng-enter {
   opacity: 0;
 }
-/* line 38, ../assets/scss/styles.scss */
+/* line 55, ../assets/scss/styles.scss */
 .widget .table tbody tr.animate.animate.ng-leave, .widget .table tbody tr.animate.animate.ng-move.ng-move-active, .widget .table tbody tr.animate.animate.ng-enter.ng-enter-active {
   opacity: 1;
 }
-/* line 45, ../assets/scss/styles.scss */
+/* line 65, ../assets/scss/styles.scss */
 .widget .scrollable {
   position: relative;
   height: 300px;
 }
-/* line 48, ../assets/scss/styles.scss */
+/* line 69, ../assets/scss/styles.scss */
 .widget .scrollable tbody {
   display: block;
   position: absolute;
@@ -50,49 +54,62 @@
   margin-top: 37px;
   overflow-y: auto;
 }
-/* line 57, ../assets/scss/styles.scss */
+/* line 79, ../assets/scss/styles.scss */
 .widget .scrollable tbody tr {
   display: block;
 }
-/* line 59, ../assets/scss/styles.scss */
+/* line 82, ../assets/scss/styles.scss */
 .widget .scrollable tbody tr td {
   display: block;
   float: left;
   width: auto;
 }
-/* line 63, ../assets/scss/styles.scss */
+/* line 87, ../assets/scss/styles.scss */
 .widget .scrollable tbody tr td.full-width {
   width: 100% !important;
 }
+/* line 101, ../assets/scss/styles.scss */
+.widget .widget-footer .row > div {
+  margin-bottom: 0;
+}
+/* line 105, ../assets/scss/styles.scss */
+.widget .widget-footer select {
+  width: auto !important;
+  display: inline-block !important;
+}
+/* line 110, ../assets/scss/styles.scss */
+.widget .widget-footer .pagination li:not(.disabled) a {
+  cursor: pointer;
+}
 
-/* line 73, ../assets/scss/styles.scss */
+/* line 120, ../assets/scss/styles.scss */
 .panel .form-group {
   border-bottom: solid 1px #eee;
   margin: 0;
   padding-top: 15px;
   padding-bottom: 15px;
 }
-/* line 78, ../assets/scss/styles.scss */
+/* line 126, ../assets/scss/styles.scss */
 .panel .form-group:last-child {
   border-bottom: none;
 }
 
-/* line 89, ../assets/scss/styles.scss */
+/* line 143, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable thead th:nth-child(1),
 #dashboard-page .widget .scrollable tbody td:nth-child(1) {
   width: 20%;
 }
-/* line 92, ../assets/scss/styles.scss */
+/* line 147, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable thead th:nth-child(2),
 #dashboard-page .widget .scrollable tbody td:nth-child(2) {
   width: 50%;
 }
-/* line 95, ../assets/scss/styles.scss */
+/* line 151, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable thead th:nth-child(3),
 #dashboard-page .widget .scrollable tbody td:nth-child(3) {
   width: 30%;
 }
-/* line 100, ../assets/scss/styles.scss */
+/* line 159, ../assets/scss/styles.scss */
 #dashboard-page .widget .scrollable tbody tr:after {
   content: "";
   clear: both;
@@ -100,11 +117,11 @@
   width: 100%;
 }
 
-/* line 114, ../assets/scss/styles.scss */
+/* line 180, ../assets/scss/styles.scss */
 #users-list-page .table tbody td:nth-child(1) {
   width: 100px;
 }
-/* line 117, ../assets/scss/styles.scss */
+/* line 184, ../assets/scss/styles.scss */
 #users-list-page .table tbody td:nth-child(3) {
   width: 150px;
 }

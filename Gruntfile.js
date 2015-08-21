@@ -49,6 +49,7 @@ module.exports = function (grunt) {
                     'components/angular-sanitize/angular-sanitize.min.js',
                     'components/angular-cookies/angular-cookies.min.js',
                     'components/angular-ui-router/release/angular-ui-router.min.js',
+                    'components/angular-utils-pagination/dirPagination.js',
                     'components/bootstrap/dist/js/bootstrap.min.js',
 				],
                 dest: 'js/dependencies.js'
