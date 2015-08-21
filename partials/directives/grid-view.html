@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="row in config.data | orderBy : config.sortType : config.sortReverse | filter: searchQuery as searchResults" ui-sref="{{ row.sref }}" class="animate">
+                <tr dir-paginate="row in searchResults = (config.data | filter: searchQuery) | orderBy: config.sortType : config.sortReverse | itemsPerPage: itemsPerPage" pagination-id="config.title">
                     <td ng-repeat="cell in config.headers" ng-bind-html="row[cell.field]"></td>
                 </tr>
                 <tr ng-if="searchResults.length == 0">
@@ -26,11 +26,33 @@
                         No records found
                     </td>
                 </tr>
-                <tr ng-if="!config.data">
+                <tr ng-if="config.data == null">
                     <td colspan="{{ config.headers.length }}" data-loading="" class="full-width">
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="widget-footer">
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <select class="form-control input-sm" ng-model="itemsPerPage" ng-options="option for option in itemsPerPageOptions">
+                        </select>
+                        <label class="control-label">Rows</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-7">
+                <div class="text-right">
+                    <dir-pagination-controls 
+                        pagination-id="config.title"
+                        max-size="5"
+                        template-url="partials/directives/pagination.html">
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

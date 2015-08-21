@@ -7,7 +7,8 @@ var app = angular.module('WidgetSpa', [
     'ui.router',
     'ngAnimate',
     'ngSanitize',
-    'ngCookies'
+    'ngCookies',
+    'angularUtils.directives.dirPagination'
 ]);
 
 // Application constants
