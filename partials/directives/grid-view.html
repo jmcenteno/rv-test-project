@@ -1,7 +1,10 @@
 <div class="widget">
-    <div class="widget-header">{{ config.title }}
-        <div class="pull-right">
-            <input type="text" class="form-control input-sm" placeholder="Search" ng-model="searchQuery">
+    <div class="widget-header">
+        <div class="row">
+            <div class="col-sm-8">{{ config.title }}</div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" placeholder="Search" ng-model="searchQuery">
+            </div>
         </div>
     </div>
     <div ng-class="config.scrollable ? 'scrollable' : 'table-responsive'">
@@ -27,7 +30,8 @@
                     </td>
                 </tr>
                 <tr ng-if="config.data == null">
-                    <td colspan="{{ config.headers.length }}" data-loading="" class="full-width">
+                    <td colspan="{{ config.headers.length }}" class="full-width">
+                        <loading/>
                     </td>
                 </tr>
             </tbody>
