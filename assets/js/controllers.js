@@ -47,14 +47,14 @@ app.controller('MainCtrl', ['$scope', '$cookieStore',
 ]);
 
 // Home page controller
-app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
-    function ($scope, _users, _widgets, $filter) {
+app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter', '$rootScope',
+    function ($scope, _users, _widgets, $filter, $rootScope) {
 
         // set the page title
-        $scope.$parent.pageTitle = 'Dashboard';
+        $rootScope.pageTitle = 'Dashboard';
 
         // set page breadcrumbs
-        $scope.$parent.breadcrumb = [
+        $rootScope.breadcrumb = [
             {
                 text: 'Home',
                 href: null
@@ -168,14 +168,14 @@ app.controller('DashboardCtrl', ['$scope', '_users', '_widgets', '$filter',
 ]);
 
 // Users list view controller
-app.controller('UsersCtrl', ['$scope', '_users',
-    function ($scope, _users) {
+app.controller('UsersCtrl', ['$scope', '$rootScope', '_users',
+    function ($scope, $rootScope, _users) {
 
         // set the page title
-        $scope.$parent.pageTitle = 'Users';
+        $rootScope.pageTitle = 'Users';
 
         // set page breadcrumbs
-        $scope.$parent.breadcrumb = [
+        $rootScope.breadcrumb = [
             {
                 text: 'Home',
                 href: 'dashboard'
@@ -236,14 +236,14 @@ app.controller('UsersCtrl', ['$scope', '_users',
 ]);
 
 // User details view controller
-app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
-    function ($scope, _users, $stateParams) {
+app.controller('UserDetailsCtrl', ['$scope', '$rootScope', '_users', '$stateParams',
+    function ($scope, $rootScope, _users, $stateParams) {
 
         // set the page title
-        $scope.$parent.pageTitle = 'Users';
-
+        $rootScope.pageTitle = 'Users';
+        
         // set page breadcrumbs
-        $scope.$parent.breadcrumb = [
+        $rootScope.breadcrumb = [
             {
                 text: 'Home',
                 href: 'dashboard'
@@ -259,7 +259,7 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
 
             $scope.user = data;
 
-            $scope.$parent.breadcrumb.push({
+            $rootScope.breadcrumb.push({
                 text: data.name,
                 href: null
             });
@@ -270,14 +270,14 @@ app.controller('UserDetailsCtrl', ['$scope', '_users', '$stateParams',
 ]);
 
 // Widgets list view controller
-app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
-    function ($scope, _widgets, $timeout, $filter) {
+app.controller('WidgetsCtrl', ['$scope', '$rootScope', '_widgets', '$timeout', '$filter',
+    function ($scope, $rootScope, _widgets, $timeout, $filter) {
 
         // set the page title
-        $scope.$parent.pageTitle = 'Widgets';
+        $rootScope.pageTitle = 'Widgets';
 
         // set page breadcrumbs
-        $scope.$parent.breadcrumb = [
+        $rootScope.breadcrumb = [
             {
                 text: 'Home',
                 href: 'dashboard'
@@ -405,14 +405,14 @@ app.controller('WidgetsCtrl', ['$scope', '_widgets', '$timeout', '$filter',
 ]);
 
 // Widget details view controller
-app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$timeout',
-    function ($scope, _widgets, $stateParams, $timeout) {
+app.controller('WidgetDetailsCtrl', ['$scope', '$rootScope', '_widgets', '$stateParams', '$timeout',
+    function ($scope, $rootScope, _widgets, $stateParams, $timeout) {
 
         // set page breadcrumbs
-        $scope.$parent.pageTitle = 'Widgets';
-
+        $rootScope.pageTitle = 'Widgets';
+            
         // set page breadcrumbs
-        $scope.$parent.breadcrumb = [
+        $rootScope.breadcrumb = [
             {
                 text: 'Home',
                 href: 'dashboard'
@@ -429,7 +429,7 @@ app.controller('WidgetDetailsCtrl', ['$scope', '_widgets', '$stateParams', '$tim
             $scope.widget = data;
             $scope.widget.price = parseFloat($scope.widget.price);
 
-            $scope.$parent.breadcrumb.push({
+            $rootScope.breadcrumb.push({
                 text: data.name,
                 href: null
             });
