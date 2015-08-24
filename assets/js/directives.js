@@ -90,9 +90,13 @@ app.directive('loading', [
     function () {
 
         return {
-            restrict: 'A',
+            restrict: 'E',
             scope: {},
-            templateUrl: 'partials/directives/loading.html'
+            replace: true,
+            template: '<div class="loading">' +
+                '<div class="double-bounce1"></div>' +
+                '<div class="double-bounce2"></div>' + 
+                '</div>'
         };
 
     }
