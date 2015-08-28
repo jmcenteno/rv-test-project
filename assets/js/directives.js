@@ -4,159 +4,149 @@
  */
 
 //Generate breadcrumb navigation
-app.directive('breadcrumb', ['$state',
-    function ($state) {
+app.directive('breadcrumb', function ($state, _pageHeader) {
 
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
+    return {
+        restrict: 'A',
+        scope: {},
+        link: function (scope, element, attrs) {
 
-                scope.$watchCollection(function () {
+            scope.$watchCollection(function () {
+
+                return _pageHeader.getBreadcrumb();
+
+            }, function (value) {
+
+                if (angular.isArray(value)) {
+
+                    element.html('');
                     
-                    return scope.breadcrumb;
-                    
-                }, function (value) {
+                    var breadcrumb = [];
 
-                    if (angular.isArray(value)) {
+                    angular.forEach(value, function (item) {
 
-                        element.html('');
-                        var breadcrumb = [];
+                        if (item.href != null) {
 
-                        angular.forEach(value, function (item) {
+                            breadcrumb.push('<a href="' + $state.href(item.href) + '">' + item.text + '</a>');
 
-                            if (item.href != null) {
+                        } else {
 
-                                breadcrumb.push('<a href="' + $state.href(item.href) + '">' + item.text + '</a>');
+                            breadcrumb.push(item.text);
 
-                            } else {
-
-                                breadcrumb.push(item.text);
-
-                            }
-
-                        });
-
-                        element.html(breadcrumb.join(' / '));
-
-                    }
-
-                });
-
-            }
-        };
-
-    }
-]);
-
-// Wrapper directive to use jQuery to animate values and display them as they change with an easing method
-app.directive('animateValue', [
-    function () {
-
-        return {
-            restrict: 'A',
-            scope: {
-                total: '=animateValue'
-            },
-            link: function (scope, element, attrs) {
-
-                scope.$watch(function () {
-
-                    return scope.total;
-
-                }, function (newValue, oldValue) {
-
-                    angular.element({
-                        value: oldValue
-                    }).animate({
-                        value: newValue
-                    }, {
-                        duration: 3000,
-                        easing: 'swing',
-                        step: function () {
-                            element.text(Math.ceil(this.value));
                         }
+
                     });
 
+                    element.html(breadcrumb.join(' / '));
+
+                }
+
+            });
+
+        }
+    };
+
+});
+
+// Wrapper directive to use jQuery to animate values and display them as they change with an easing method
+app.directive('animateValue', function () {
+
+    return {
+        restrict: 'A',
+        scope: {
+            total: '=animateValue'
+        },
+        link: function (scope, element, attrs) {
+
+            scope.$watch(function () {
+
+                return scope.total;
+
+            }, function (newValue, oldValue) {
+
+                angular.element({
+                    value: oldValue
+                }).animate({
+                    value: newValue
+                }, {
+                    duration: 3000,
+                    easing: 'swing',
+                    step: function () {
+                        element.text(Math.ceil(this.value));
+                    }
                 });
 
-            }
-        };
+            });
 
-    }
-])
+        }
+    };
+
+});
 
 // Show a loading animation
-app.directive('loading', [
-    function () {
+app.directive('loading', function () {
 
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: true,
-            template: '<div class="loading">' +
-                '<div class="double-bounce1"></div>' +
-                '<div class="double-bounce2"></div>' + 
-                '</div>'
-        };
+    return {
+        restrict: 'E',
+        scope: {},
+        replace: true,
+        template: '<div class="loading">' +
+            '<div class="double-bounce1"></div>' +
+            '<div class="double-bounce2"></div>' + 
+            '</div>'
+    };
 
-    }
-]);
+});
 
 // Sortable HTML table generator
-app.directive('gridView', ['$state',
-    function ($state) {
+app.directive('gridView', function ($state) {
 
-        return {
-            restrict: 'A',
-            templateUrl: 'partials/directives/grid-view.html',
-            scope: {
-                config: '=gridView'
-            },
-            controller: function ($scope) {
-                
-                $scope.itemsPerPageOptions = [10, 25, 50, 100];
-                $scope.itemsPerPage = $scope.itemsPerPageOptions[0];
-                $scope.currentPage = 0;
-                
-                $scope.go = function (state) {
-                    $state.go(state.name, state.params);
-                };
-                
-            }
-        };
+    return {
+        restrict: 'A',
+        templateUrl: 'partials/directives/grid-view.html',
+        scope: {
+            config: '=gridView'
+        },
+        controller: function ($scope) {
 
-    }
-]);
+            $scope.itemsPerPageOptions = [10, 25, 50, 100];
+            $scope.itemsPerPage = $scope.itemsPerPageOptions[0];
+            $scope.currentPage = 0;
+
+            $scope.go = function (state) {
+                $state.go(state.name, state.params);
+            };
+
+        }
+    };
+
+});
 
 // Modal with a form to create new widgets
-app.directive('widgetCreate', ['_widgets',
-    function (_widgets) {
+app.directive('widgetCreate', function (_widgets) {
 
-        return {
-            restrict: 'A',
-            templateUrl: 'partials/directives/widget-create.html',
-            replace: true
-        };
+    return {
+        restrict: 'A',
+        templateUrl: 'partials/directives/widget-create.html',
+        replace: true
+    };
 
-    }
-]);
+});
 
 // Back button
-app.directive('backButton', ['$state',
-    function ($state) {
+app.directive('backButton', function ($state) {
 
-        return {
-            restrict: 'A',
-            templateUrl: 'partials/directives/back-button.html',
-            replace: true,
-            scope: {},
-            link: function (scope, element, attrs) {
+    return {
+        restrict: 'A',
+        templateUrl: 'partials/directives/back-button.html',
+        replace: true,
+        scope: {},
+        link: function (scope, element, attrs) {
 
-                scope.config = scope.$eval(attrs.backButton);
-                scope.config.state = $state.href(scope.config.state);
+            scope.config = scope.$eval(attrs.backButton);
+            scope.config.state = $state.href(scope.config.state);
 
-            }
-        };
+        }
+    };
 
-    }
-]);
+});
