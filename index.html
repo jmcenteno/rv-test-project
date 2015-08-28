@@ -11,18 +11,34 @@
 </head>
 
 <body>
-    <div id="page-wrapper" class="open" ng-class="{'open': toggle}">
+    <div id="page-wrapper" class="open" ng-class="{ 'open': toggle }">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar">
                 <li class="sidebar-main">
-                    <a ng-click="toggleSidebar()">Dashboard <span class="menu-icon glyphicon glyphicon-transfer"></span></a>
+                    <a ng-click="toggleSidebar()">Dashboard 
+                        <i class="menu-icon glyphicon glyphicon-transfer"></i>
+                    </a>
                 </li>
-                <li class="sidebar-title"><span>NAVIGATION</span></li>
-                <li class="sidebar-list" ui-sref-active="active"><a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a></li>
-                <li class="sidebar-list" ui-sref-active="active"><a ui-sref="users">Users <span class="menu-icon fa fa-users"></span></a></li>
-                <li class="sidebar-list" ui-sref-active="active"><a ui-sref="widgets">Widgets <span class="menu-icon fa fa-cubes"></span></a></li>
+                <li class="sidebar-title">
+                    <span>NAVIGATION</span>
+                </li>
+                <li class="sidebar-list" ui-sref-active="active">
+                    <a ui-sref="dashboard">Dashboard 
+                        <i class="menu-icon fa fa-tachometer"></i>
+                    </a>
+                </li>
+                <li class="sidebar-list" ui-sref-active="active">
+                    <a ui-sref="users">Users 
+                        <i class="menu-icon fa fa-users"></i>
+                    </a>
+                </li>
+                <li class="sidebar-list" ui-sref-active="active">
+                    <a ui-sref="widgets">Widgets 
+                        <i class="menu-icon fa fa-cubes"></i>
+                    </a>
+                </li>
             </ul>
             <div class="sidebar-footer col-xs-12">
                 <a ui-sref="dashboard">&copy; {{ year }} Red Ventures</a>
