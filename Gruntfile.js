@@ -55,6 +55,16 @@ module.exports = function (grunt) {
                 dest: 'js/dependencies.js'
             }
         },
+        ngAnnotate: {
+            options: {
+                sourceMap: true
+            },
+            app: {
+                files: {
+                    'js/app.js': 'js/app.js'
+                }
+            },
+        },
         uglify: {
             dependencies: {
                 src: 'js/dependencies.js',
@@ -76,7 +86,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['assets/js/**/*.js'],
-                tasks: ['concat', 'uglify'],
+                tasks: ['concat', 'ngAnnotate', 'uglify'],
                 options: {
                     livereload: true
                 }
@@ -93,6 +103,6 @@ module.exports = function (grunt) {
 
     // Where we tell Grunt what to do when we type "grunt" into the terminal.
 
-    grunt.registerTask('default', ['concurrent:watch', 'concat:dist', 'concat:dependencies', 'uglify']);
+    grunt.registerTask('default', ['concurrent:watch', 'concat:dist', 'concat:dependencies', 'ngAnnotate', 'uglify']);
 
 };
