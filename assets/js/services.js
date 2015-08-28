@@ -10,36 +10,34 @@
  * AngularJS service to request user data from remote API
  * @returns     (object) An object with methods to obtain collections or single records
  */
-app.factory('_users', ['$http', 'API_URL',
-    function ($http, API_URL) {
+app.factory('_users', function ($http, API_URL) {
 
-        var users = {};
+    var users = {};
 
-        /**
-         * Get all users
-         * @returns {array} Collection of user objects
-         */
-        users.getAllUsers = function () {
-            return $http.get(API_URL + '/users').then(function (response) {
-                return response.data;
-            });
-        };
+    /**
+     * Get all users
+     * @returns {array} Collection of user objects
+     */
+    users.getAllUsers = function () {
+        return $http.get(API_URL + '/users').then(function (response) {
+            return response.data;
+        });
+    };
 
-        /**
-         * Get one user
-         * @param   {int} id User ID
-         * @returns {object} User object
-         */
-        users.getUser = function (id) {
-            return $http.get(API_URL + '/users/' + id).then(function (response) {
-                return response.data;
-            });
-        };
+    /**
+     * Get one user
+     * @param   {int} id User ID
+     * @returns {object} User object
+     */
+    users.getUser = function (id) {
+        return $http.get(API_URL + '/users/' + id).then(function (response) {
+            return response.data;
+        });
+    };
 
-        return users;
+    return users;
 
-    }
-]);
+});
 
 /* *
  * _widgets Factory
@@ -47,82 +45,106 @@ app.factory('_users', ['$http', 'API_URL',
  * AngularJS service to request widget data from remote API
  * @returns     (object) An object with methods to obtain collections, single records, and to modify records
  */
-app.factory('_widgets', ['$http', 'API_URL',
-    function ($http, API_URL) {
+app.factory('_widgets', function ($http, API_URL) {
 
-        var widgets = {};
+    var widgets = {};
 
-        /**
-         * Get all widgets
-         * @returns {array} Collection of widget objects
-         */
-        widgets.getAllWidgets = function () {
-            return $http.get(API_URL + '/widgets').then(function (response) {
-                return response.data;
-            });
-        };
+    /**
+     * Get all widgets
+     * @returns {array} Collection of widget objects
+     */
+    widgets.getAllWidgets = function () {
+        return $http.get(API_URL + '/widgets').then(function (response) {
+            return response.data;
+        });
+    };
 
-        /**
-         * Get on widget
-         * @param   {int} id Widget ID
-         * @returns {object} Widget object
-         */
-        widgets.getWidget = function (id) {
-            return $http.get(API_URL + '/widgets/' + id).then(function (response) {
-                return response.data;
-            });
-        };
+    /**
+     * Get on widget
+     * @param   {int} id Widget ID
+     * @returns {object} Widget object
+     */
+    widgets.getWidget = function (id) {
+        return $http.get(API_URL + '/widgets/' + id).then(function (response) {
+            return response.data;
+        });
+    };
 
-        /**
-         * Create a new widget
-         * @param   {object} params Object with all properties that make a single widget
-         * @returns {string} Response from the API
-         */
-        widgets.createWidget = function (params) {
-            return $http.post(API_URL + '/widgets', params).then(function (response) {
-                return response.data;
-            });
-        };
+    /**
+     * Create a new widget
+     * @param   {object} params Object with all properties that make a single widget
+     * @returns {string} Response from the API
+     */
+    widgets.createWidget = function (params) {
+        return $http.post(API_URL + '/widgets', params).then(function (response) {
+            return response.data;
+        });
+    };
 
-        /**
-         * Edit an existing widget
-         * @param   {int} id     Widget ID
-         * @param   {object} params Object with all properties that a make a single widget
-         * @returns {string} Response from API
-         */
-        widgets.editWidget = function (id, params) {
-            return $http.put(API_URL + '/widgets/' + id, params).then(function (response) {
-                return response.data;
-            });
-        };
+    /**
+     * Edit an existing widget
+     * @param   {int} id     Widget ID
+     * @param   {object} params Object with all properties that a make a single widget
+     * @returns {string} Response from API
+     */
+    widgets.editWidget = function (id, params) {
+        return $http.put(API_URL + '/widgets/' + id, params).then(function (response) {
+            return response.data;
+        });
+    };
 
-        /**
-         * Generate a list of colors from existing widgets
-         * @returns {array} Collection with unique color values
-         */
-        widgets.getColorOptions = function () {
-            return $http.get(API_URL + '/widgets').then(function (response) {
+    /**
+     * Generate a list of colors from existing widgets
+     * @returns {array} Collection with unique color values
+     */
+    widgets.getColorOptions = function () {
+        return $http.get(API_URL + '/widgets').then(function (response) {
 
-                var colors = [];
+            var colors = [];
 
-                if (response.data) {
+            if (response.data) {
 
-                    angular.forEach(response.data, function (item) {
-                        if (colors.indexOf(item.color) == -1) {
-                            colors.push(item.color)
-                        }
-                    });
+                angular.forEach(response.data, function (item) {
+                    if (colors.indexOf(item.color) == -1) {
+                        colors.push(item.color)
+                    }
+                });
 
-                    colors = colors.sort();
+                colors = colors.sort();
 
-                }
+            }
 
-                return colors;
+            return colors;
 
-            });
-        };
+        });
+    };
 
-        return widgets;
+    return widgets;
 
-    }
-]);
+});
+
+app.service('_pageHeader', function () {
+    
+    // page title
+    this.title = '';
+    
+    this.setTitle = function (value) {
+        this.title = value;
+    };
+    
+    this.getTitle = function () {
+        return this.title;
+    };
+    
+    // breadcrumbs
+    this.breadcrumb = [];
+    
+    this.setBreacrumb = function (arr) {
+        this.breadcrumb = arr;
+    };
+    
+    this.getBreadcrumb = function() {
+        return this.breadcrumb;
+    };
+    
+});
